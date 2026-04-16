@@ -11,7 +11,6 @@ import { HomePage }      from "./pages/HomePage";
 import { SignupPage }    from "./pages/SignupPage";
 import { SearchPage }    from "./pages/SearchPage";
 import { ProductPage }   from "./pages/ProductPage";
-import { EditProductPage }  from "./pages/EditProductPage";
 import { BrandPage }     from "./pages/BrandPage";
 import { BrandsPage, CategoriesPage, LoginPage } from "./pages/StaticPages";
 import { DashboardPage } from "./pages/DashboardPage";

@@ -8,7 +8,9 @@ import { Navbar }        from "./components/layout/Navbar";
 import { Footer }        from "./components/layout/Footer";
 import { Toast }         from "./components/ui";
 import { HomePage }      from "./pages/HomePage";
+/*
 import { SignupPage }    from "./pages/SignupPage";
+*/
 import { SearchPage }    from "./pages/SearchPage";
 import { ProductPage }   from "./pages/ProductPage";
 import { BrandPage }     from "./pages/BrandPage";

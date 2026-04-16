@@ -40,7 +40,7 @@ function InnerApp() {
             <Route path="/brand/:id"   element={<BrandPage />} />
             <Route path="/brands"      element={<BrandsPage />} />
             <Route path="/categories"  element={<CategoriesPage />} />
-            <Route path="/signup"       element={<SignupPage />} />
+          
             <Route path="/login"       element={<LoginPage />} />
             <Route path="/dashboard"   element={<DashboardPage />} />
             <Route path="/admin"       element={<AdminPage />} />

@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+
 import { AppProvider }   from "./context/AppContext";
 import { useApp }        from "./context/AppContext";
 import { GlobalStyles }  from "./components/ui/GlobalStyles";
@@ -7,8 +8,10 @@ import { Navbar }        from "./components/layout/Navbar";
 import { Footer }        from "./components/layout/Footer";
 import { Toast }         from "./components/ui";
 import { HomePage }      from "./pages/HomePage";
+import { SignupPage }    from "./pages/SignupPage";
 import { SearchPage }    from "./pages/SearchPage";
 import { ProductPage }   from "./pages/ProductPage";
+import { EditProductPage }  from "./pages/EditProductPage";
 import { BrandPage }     from "./pages/BrandPage";
 import { BrandsPage, CategoriesPage, LoginPage } from "./pages/StaticPages";
 import { DashboardPage } from "./pages/DashboardPage";
@@ -36,6 +39,7 @@ function InnerApp() {
             <Route path="/brand/:id"   element={<BrandPage />} />
             <Route path="/brands"      element={<BrandsPage />} />
             <Route path="/categories"  element={<CategoriesPage />} />
+            <Route path="/signup"       element={<SignupPage />} />
             <Route path="/login"       element={<LoginPage />} />
             <Route path="/dashboard"   element={<DashboardPage />} />
             <Route path="/admin"       element={<AdminPage />} />

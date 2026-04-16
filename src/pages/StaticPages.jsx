@@ -77,13 +77,15 @@ export const CategoriesPage = () => {
 
 // ─── LoginPage ────────────────────────────────────────────────────────────────
 export const LoginPage = () => {
-  const { login, showToast } = useApp();
+  //const { login, showToast } = useApp();
+  const { supabase, showToast } = useApp();
+  
   const navigate = useNavigate();
   const [email,    setEmail]    = useState("");
   const [password, setPassword] = useState("");
   const [loading,  setLoading]  = useState(false);
 
-  const handleSubmit = async () => {
+  /*const handleSubmit = async () => {
     if (!email || !password) return;
     setLoading(true);
     await new Promise(r => setTimeout(r, 500));
@@ -91,6 +93,27 @@ export const LoginPage = () => {
     setLoading(false);
     if (ok) { showToast("Logged in!"); navigate("/"); }
     else showToast("Invalid credentials", "error");
+  }; */
+  
+  const handleSubmit = async () => {
+    if (!email || !password) return;
+  
+    setLoading(true);
+  
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+  
+    setLoading(false);
+  
+    if (error) {
+      showToast("Invalid credentials", "error");
+      return;
+    }
+  
+    showToast("Logged in!");
+    navigate("/");
   };
 
   return (

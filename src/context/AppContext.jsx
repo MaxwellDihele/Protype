@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { supabase } from "../lib/supabaseClient";
 
 export const AppContext = createContext(null);
@@ -24,24 +30,46 @@ export function AppProvider({ children }) {
 
   // ================= FETCH DATA =================
   const loadData = async () => {
-    const [{ data: productsData }, { data: brandsData }] = await Promise.all([
-      supabase.from("products").select("*"),
-      supabase.from("brands").select("*"),
-    ]);
+    try {
+      const [
+        { data: productsData, error: pErr },
+        { data: brandsData, error: bErr },
+      ] = await Promise.all([
+        supabase.from("products").select("*"),
+        supabase.from("brands").select("*"),
+      ]);
 
-    setProducts(productsData || []);
-    setBrands(brandsData || []);
+      if (pErr || bErr) {
+        console.error(pErr || bErr);
+        showToast("Failed to load data", "error");
+      }
+
+      setProducts(productsData || []);
+      setBrands(brandsData || []);
+    } catch (err) {
+      console.error(err);
+      showToast("Something went wrong loading data", "error");
+    }
   };
 
   // ================= PROFILE =================
   const fetchProfile = async (userId) => {
-    const { data } = await supabase
-      .from("profiles")
-      .select("*")
-      .eq("id", userId)
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", userId)
+        .single();
 
-    setProfile(data);
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      setProfile(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   // ================= AUTH =================
@@ -51,10 +79,15 @@ export function AppProvider({ children }) {
       password,
     });
 
-    if (error) return false;
+    if (error) {
+      showToast("Invalid credentials", "error");
+      return false;
+    }
 
     setUser(data.user);
     await fetchProfile(data.user.id);
+
+    showToast("Logged in!");
     return true;
   };
 
@@ -73,21 +106,29 @@ export function AppProvider({ children }) {
       .select()
       .single();
 
-    if (error) return null;
+    if (error) {
+      console.error(error);
+      showToast("Failed to add product", "error");
+      return null;
+    }
 
     setProducts((prev) => [data, ...prev]);
     return data;
   };
 
-  const updateProduct = async (id, data) => {
+  const updateProduct = async (id, updates) => {
     const { data: updated, error } = await supabase
       .from("products")
-      .update(data)
+      .update(updates)
       .eq("id", id)
       .select()
       .single();
 
-    if (error) return;
+    if (error) {
+      console.error(error);
+      showToast("Update failed", "error");
+      return;
+    }
 
     setProducts((prev) =>
       prev.map((p) => (p.id === id ? updated : p))
@@ -100,24 +141,32 @@ export function AppProvider({ children }) {
       .delete()
       .eq("id", id);
 
-    if (!error) {
-      setProducts((prev) => prev.filter((p) => p.id !== id));
+    if (error) {
+      console.error(error);
+      showToast("Delete failed", "error");
+      return;
     }
+
+    setProducts((prev) => prev.filter((p) => p.id !== id));
   };
 
-  const updateBrand = async (id, data) => {
+  const updateBrand = async (id, updates) => {
     const { data: updated, error } = await supabase
       .from("brands")
-      .update(data)
+      .update(updates)
       .eq("id", id)
       .select()
       .single();
 
-    if (!error) {
-      setBrands((prev) =>
-        prev.map((b) => (b.id === id ? updated : b))
-      );
+    if (error) {
+      console.error(error);
+      showToast("Brand update failed", "error");
+      return;
     }
+
+    setBrands((prev) =>
+      prev.map((b) => (b.id === id ? updated : b))
+    );
   };
 
   // ================= INIT =================
@@ -153,6 +202,55 @@ export function AppProvider({ children }) {
 
     return () => listener.subscription.unsubscribe();
   }, []);
+
+  // ================= LOADING SCREEN =================
+  if (loading) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+          background: "#0f0f0f",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
+
+  // ================= CONTEXT =================
+  return (
+    <AppContext.Provider
+      value={{
+        theme,
+        setTheme,
+
+        user,
+        profile,
+        loading,
+
+        products,
+        brands,
+
+        login,
+        logout,
+
+        addProduct,
+        updateProduct,
+        deleteProduct,
+        updateBrand,
+
+        showToast,
+        toast,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+}
 
   // ================= CONTEXT VALUE =================
   return (

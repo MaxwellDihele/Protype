@@ -54,15 +54,38 @@ const ProductModal = ({ product, onClose, onSave }) => {
 
 export const DashboardPage = () => {
   const navigate = useNavigate();
-  const { user, products, brands, addProduct, updateProduct, deleteProduct, updateBrand, showToast } = useApp();
+
+  const {
+    user,
+    profile,
+    loading,
+    products,
+    brands,
+    addProduct,
+    updateProduct,
+    deleteProduct,
+    updateBrand,
+    showToast
+  } = useApp();
+  
+  if (loading) return null;
+  
+  if (!user || profile?.role !== "seller") {
+    return (
+      <EmptyState
+        icon="lock"
+        title="Access denied"
+        sub="Please log in as a seller"
+        action={<Btn onClick={() => navigate("/login")}>Log In</Btn>}
+      />
+    );
+  }
   const [tab,            setTab]            = useState("products");
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [editProduct,    setEditProduct]    = useState(null);
 
-  if (!user || user.role !== "seller") return <EmptyState icon="lock" title="Access denied" sub="Please log in as a seller" action={<Btn onClick={() => navigate("/login")}>Log In</Btn>} />;
-
-  const brand      = brands.find(b => b.id === user.brandId);
-  const myProducts = products.filter(p => p.brand === user.brandId);
+  const brand = brands.find(b => b.id === profile?.brand_id);
+  const myProducts = products.filter(p => p.brand === profile?.brand_id);
 
   return (
     <div className="fade-in" style={{ maxWidth:1200, margin:"0 auto", padding:"32px 16px" }}>

@@ -98,7 +98,6 @@ export function AppProvider({ children }) {
   };
 
   // ================= CRUD =================
-
   const addProduct = async (prod) => {
     const { data, error } = await supabase
       .from("products")
@@ -202,6 +201,55 @@ export function AppProvider({ children }) {
 
     return () => listener.subscription.unsubscribe();
   }, []);
+
+  // ================= LOADING =================
+  if (loading) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+          background: "#0f0f0f",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
+
+  // ================= CONTEXT =================
+  return (
+    <AppContext.Provider
+      value={{
+        theme,
+        setTheme,
+
+        user,
+        profile,
+        loading,
+
+        products,
+        brands,
+
+        login,
+        logout,
+
+        addProduct,
+        updateProduct,
+        deleteProduct,
+        updateBrand,
+
+        showToast,
+        toast,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+}
 
   // ================= LOADING SCREEN =================
   if (loading) {

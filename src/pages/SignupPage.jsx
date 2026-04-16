@@ -4,7 +4,7 @@ import { supabase } from "../lib/supabaseClient";
 import { useApp } from "../context/AppContext";
 import { Card, Input, Btn, Select, Icon } from "../components/ui";
 
-export const SignUpPage = () => {
+export const SignupPage = () => {
   const navigate = useNavigate();
   const { showToast } = useApp();
 

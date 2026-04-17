@@ -67,25 +67,6 @@ function InnerApp() {
 export default function App() {
 	logToScreen("APP STARTED"); // 👈 here
   return (
-<>
-      {/* Debug Console */}
-      <div
-        id="debug-console"
-        style={{
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          width: "100%",
-          maxHeight: "40%",
-          overflow: "auto",
-          background: "black",
-          color: "lime",
-          fontSize: "10px",
-          zIndex: 9999,
-          padding: "5px"
-        }}
-      />
-      
     <AppProvider>
       <BrowserRouter>
         <InnerApp />

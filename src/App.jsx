@@ -14,6 +14,20 @@ import { BrandsPage, CategoriesPage, LoginPage } from "./pages/StaticPages";
 import { DashboardPage } from "./pages/DashboardPage";
 import { AdminPage }     from "./pages/AdminPage";
 
+//-----------------------------+++++++-------------------------------
+const logs = [];
+
+function logToScreen(message) {
+  logs.push(message);
+  const el = document.getElementById("debug-console");
+  if (el) {
+    el.innerHTML = logs.map(l => `<div>${l}</div>`).join("");
+  }
+}
+
+//‐----------------------------++++++++------------------------------
+
+
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
@@ -21,6 +35,7 @@ function ScrollToTop() {
 }
 
 function InnerApp() {
+	logToScreen("InnerApp rendered");
   const { theme, toast } = useApp();
   return (
     <>
@@ -50,8 +65,27 @@ function InnerApp() {
 }
 
 export default function App() {
-	console.log("APP STARTED");
+	logToScreen("APP STARTED"); // 👈 here
   return (
+  <>
+      {/* Debug Console */}
+      <div
+        id="debug-console"
+        style={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          maxHeight: "40%",
+          overflow: "auto",
+          background: "black",
+          color: "lime",
+          fontSize: "10px",
+          zIndex: 9999,
+          padding: "5px"
+        }}
+      />
+      
     <AppProvider>
       <BrowserRouter>
         <InnerApp />

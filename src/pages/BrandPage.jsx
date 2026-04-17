@@ -1,27 +1,53 @@
-import { useState, useMemo } from "react";
+//Updated
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useApp } from "../context/AppContext";
-import { Badge, Btn, Icon, EmptyState, Select } from "../components/ui";
+import { supabase } from "../lib/supabase";
+import { Badge, Btn, Icon, EmptyState, Select, Spinner } from "../components/ui";
 import { ProductCard } from "../components/cards";
+
+const PAGE_SIZE = 12;
 
 export const BrandPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { brands, products } = useApp();
-  const brand = brands.find(b => b.id === id);
-  const [sort, setSort] = useState("newest");
+  const [brand,    setBrand]    = useState(null);
+  const [products, setProducts] = useState([]);
+  const [total,    setTotal]    = useState(0);
+  const [page,     setPage]     = useState(0);
+  const [sort,     setSort]     = useState("newest");
+  const [loading,  setLoading]  = useState(true);
+  const [prodLoad, setProdLoad] = useState(false);
 
+  // Load brand once
+  useEffect(() => {
+    supabase.from("brands").select("*").eq("id", id).single()
+      .then(({ data }) => { setBrand(data); setLoading(false); });
+  }, [id]);
+
+  const loadProducts = useCallback(async (pg) => {
+    setProdLoad(true);
+    let q = supabase.from("products").select("*, brands(*)", { count: "exact" }).eq("brand_id", id);
+    if (sort === "newest")    q = q.order("created_at", { ascending: false });
+    if (sort === "popular")   q = q.order("views",      { ascending: false });
+    if (sort === "price_asc") q = q.order("price",      { ascending: true  });
+    q = q.range(pg * PAGE_SIZE, (pg + 1) * PAGE_SIZE - 1);
+    const { data, count } = await q;
+    setProducts(prev => pg === 0 ? (data || []) : [...prev, ...(data || [])]);
+    setTotal(count || 0);
+    setPage(pg);
+    setProdLoad(false);
+  }, [id, sort]);
+
+  useEffect(() => {
+    setProducts([]); setPage(0);
+    loadProducts(0);
+  }, [sort, loadProducts]);
+
+  if (loading) return <div style={{ display:"flex", justifyContent:"center", padding:80 }}><Spinner /></div>;
   if (!brand) return <EmptyState icon="storefront" title="Brand not found" sub="" action={<Btn onClick={() => navigate("/brands")}>View All Brands</Btn>} />;
 
-  const brandProducts = useMemo(() => {
-    let res = products.filter(p => p.brand === brand.id);
-    if (sort === "newest")    res.sort((a,b) => new Date(b.created_at)-new Date(a.created_at));
-    if (sort === "price_asc") res.sort((a,b) => a.price-b.price);
-    if (sort === "popular")   res.sort((a,b) => b.views-a.views);
-    return res;
-  }, [products, brand.id, sort]);
-
   const wa = `https://wa.me/${brand.whatsapp}?text=${encodeURIComponent(`Hi ${brand.name}! I found you on MzansiStreet and would like to know more about your products.`)}`;
+  const hasMore = products.length < total;
 
   return (
     <>
@@ -50,12 +76,12 @@ export const BrandPage = () => {
 
       <div className="fade-in">
         <div className="bp-banner" style={{ position:"relative", overflow:"hidden", zIndex:0, background:"var(--bg3)" }}>
-          <img src={brand.banner} alt="" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }} />
+          <img src={brand.banner || `https://picsum.photos/seed/${brand.id}/800/200`} alt="" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }} />
           <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, transparent 20%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.82) 100%)", zIndex:1 }} />
         </div>
 
         <div className="bp-identity">
-          <img className="bp-logo" src={brand.logo} alt={brand.name} />
+          <img className="bp-logo" src={brand.logo || `https://api.dicebear.com/7.x/shapes/svg?seed=${brand.id}`} alt={brand.name} />
           <div className="bp-name-row">
             <div className="bp-name-badge">
               <h1 style={{ fontFamily:"'Bebas Neue', sans-serif", fontSize:"clamp(1.6rem, 5vw, 2.4rem)", letterSpacing:"0.04em", lineHeight:1, color:"var(--text)", wordBreak:"break-word" }}>{brand.name}</h1>
@@ -65,7 +91,7 @@ export const BrandPage = () => {
               <Icon name="category" size={13} color="var(--text3)" />
               <span style={{ color:"var(--text2)", fontSize:"0.85rem", fontWeight:500 }}>{brand.category}</span>
               <span style={{ color:"var(--border2)" }}>·</span>
-              <span style={{ color:"var(--text3)", fontSize:"0.82rem" }}>{brandProducts.length} product{brandProducts.length!==1?"s":""}</span>
+              <span style={{ color:"var(--text3)", fontSize:"0.82rem" }}>{total} product{total!==1?"s":""}</span>
             </div>
           </div>
           <div className="bp-cta-row">
@@ -100,14 +126,25 @@ export const BrandPage = () => {
           </div>
 
           <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:20, gap:12, flexWrap:"wrap" }}>
-            <h2 style={{ fontSize:"clamp(1.4rem, 4vw, 1.8rem)" }}>Products ({brandProducts.length})</h2>
-            <Select value={sort} onChange={setSort} options={[{value:"newest",label:"Newest"},{value:"popular",label:"Most Popular"},{value:"price_asc",label:"Price: Low → High"}]} />
+            <h2 style={{ fontSize:"clamp(1.4rem, 4vw, 1.8rem)" }}>Products ({total})</h2>
+            <Select value={sort} onChange={v => { setSort(v); }} options={[{value:"newest",label:"Newest"},{value:"popular",label:"Most Popular"},{value:"price_asc",label:"Price: Low → High"}]} />
           </div>
 
-          {brandProducts.length === 0
+          {products.length === 0 && !prodLoad
             ? <EmptyState icon="inventory_2" title="No products yet" sub="This brand hasn't listed any products" />
-            : <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(160px, 1fr))", gap:14, marginBottom:48 }}>{brandProducts.map(p => <ProductCard key={p.id} product={p} />)}</div>
+            : <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(160px, 1fr))", gap:14, marginBottom:24 }}>
+                {products.map(p => <ProductCard key={p.id} product={{ ...p, brand: p.brand_id, brandData: p.brands }} />)}
+              </div>
           }
+
+          {prodLoad && <div style={{ display:"flex", justifyContent:"center", padding:32 }}><Spinner /></div>}
+          {hasMore && !prodLoad && (
+            <div style={{ display:"flex", justifyContent:"center", marginBottom:48 }}>
+              <Btn variant="secondary" onClick={() => loadProducts(page + 1)}>
+                <Icon name="expand_more" size={18} />Load More
+              </Btn>
+            </div>
+          )}
         </div>
       </div>
     </>

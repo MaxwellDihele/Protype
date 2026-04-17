@@ -1,53 +1,87 @@
-import { useState, useMemo, useEffect } from "react";
+//*Updated
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useApp } from "../context/AppContext";
+import { supabase } from "../lib/supabase";
 import { CATEGORIES } from "../data/seed";
-import { EmptyState, Select, Btn, Icon } from "../components/ui";
+import { EmptyState, Select, Btn, Icon, Spinner } from "../components/ui";
 import { ProductCard, BrandCard } from "../components/cards";
+
+const PAGE_SIZE = 12;
 
 export const SearchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
-  const { products, brands } = useApp();
 
-  const [query,       setQuery]       = useState(searchParams.get("q") || "");
-  const [category,    setCategory]    = useState(searchParams.get("category") || "");
-  const [sort,        setSort]        = useState(searchParams.get("sort") || "newest");
-  const [tab,         setTab]         = useState("products");
-  const [currentPage, setCurrentPage] = useState(1);
-  const PER_PAGE = 12;
+  const [query,    setQuery]    = useState(searchParams.get("q") || "");
+  const [category, setCategory] = useState(searchParams.get("category") || "");
+  const [sort,     setSort]     = useState(searchParams.get("sort") || "newest");
+  const [tab,      setTab]      = useState("products");
 
-  // Sync state → URL
+  // Products pagination state
+  const [products,     setProducts]     = useState([]);
+  const [prodLoading,  setProdLoading]  = useState(false);
+  const [prodTotal,    setProdTotal]    = useState(0);
+  const [prodPage,     setProdPage]     = useState(0);
+
+  // Brands pagination state
+  const [brands,       setBrands]       = useState([]);
+  const [brandLoading, setBrandLoading] = useState(false);
+  const [brandTotal,   setBrandTotal]   = useState(0);
+  const [brandPage,    setBrandPage]    = useState(0);
+
+  // Sync filters → URL
   useEffect(() => {
     const params = {};
     if (query)    params.q        = query;
     if (category) params.category = category;
     if (sort !== "newest") params.sort = sort;
     setSearchParams(params, { replace: true });
-    setCurrentPage(1);
+    // Reset and reload on filter change
+    setProducts([]); setProdPage(0); setProdTotal(0);
+    setBrands([]);   setBrandPage(0); setBrandTotal(0);
   }, [query, category, sort]);
 
-  const filteredProducts = useMemo(() => {
-    let res = [...products];
-    if (query)    res = res.filter(p => p.name.toLowerCase().includes(query.toLowerCase()) || p.description.toLowerCase().includes(query.toLowerCase()));
-    if (category) res = res.filter(p => p.category === category);
-    if (sort === "newest")     res.sort((a,b) => new Date(b.created_at)-new Date(a.created_at));
-    if (sort === "price_asc")  res.sort((a,b) => a.price-b.price);
-    if (sort === "price_desc") res.sort((a,b) => b.price-a.price);
-    if (sort === "popular")    res.sort((a,b) => b.views-a.views);
-    return res;
-  }, [products, query, category, sort]);
+  // Load products
+  const loadProducts = useCallback(async (page) => {
+    setProdLoading(true);
+    let q = supabase.from("products").select("*, brands(*)", { count: "exact" });
+    if (query)    q = q.or(`name.ilike.%${query}%,description.ilike.%${query}%`);
+    if (category) q = q.eq("category", category);
+    if (sort === "newest")     q = q.order("created_at", { ascending: false });
+    if (sort === "popular")    q = q.order("views",      { ascending: false });
+    if (sort === "price_asc")  q = q.order("price",      { ascending: true  });
+    if (sort === "price_desc") q = q.order("price",      { ascending: false });
+    q = q.range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
+    const { data, count } = await q;
+    setProducts(prev => page === 0 ? (data || []) : [...prev, ...(data || [])]);
+    setProdTotal(count || 0);
+    setProdPage(page);
+    setProdLoading(false);
+  }, [query, category, sort]);
 
-  const filteredBrands = useMemo(() => {
-    if (!query) return brands;
-    return brands.filter(b => b.name.toLowerCase().includes(query.toLowerCase()) || b.category.toLowerCase().includes(query.toLowerCase()));
-  }, [brands, query]);
+  // Load brands
+  const loadBrands = useCallback(async (page) => {
+    setBrandLoading(true);
+    let q = supabase.from("brands").select("*", { count: "exact" });
+    if (query) q = q.or(`name.ilike.%${query}%,category.ilike.%${query}%`);
+    q = q.range(page * PAGE_SIZE, (page + 1) * PAGE_SIZE - 1);
+    const { data, count } = await q;
+    setBrands(prev => page === 0 ? (data || []) : [...prev, ...(data || [])]);
+    setBrandTotal(count || 0);
+    setBrandPage(page);
+    setBrandLoading(false);
+  }, [query]);
 
-  const totalPages = Math.ceil(filteredProducts.length / PER_PAGE);
-  const paginated  = filteredProducts.slice((currentPage-1)*PER_PAGE, currentPage*PER_PAGE);
+  // Initial load
+  useEffect(() => { loadProducts(0); }, [loadProducts]);
+  useEffect(() => { loadBrands(0);   }, [loadBrands]);
+
+  const hasMoreProducts = products.length < prodTotal;
+  const hasMoreBrands   = brands.length   < brandTotal;
 
   return (
     <div className="fade-in" style={{ maxWidth:1200, margin:"0 auto", padding:"32px 16px" }}>
+      {/* Filters */}
       <div style={{ marginBottom:24 }}>
         <h2 style={{ fontSize:"2rem", marginBottom:16 }}>Search</h2>
         <div style={{ display:"flex", gap:12, flexWrap:"wrap" }}>
@@ -61,37 +95,51 @@ export const SearchPage = () => {
         </div>
       </div>
 
-      <div style={{ display:"flex", gap:0, borderBottom:"1px solid var(--border)", marginBottom:24 }}>
-        {[["products",`Products (${filteredProducts.length})`],["brands",`Brands (${filteredBrands.length})`]].map(([t,l]) => (
-          <button key={t} onClick={() => setTab(t)} style={{ padding:"10px 20px", background:"none", border:"none", borderBottom:`2px solid ${tab===t?"var(--accent)":"transparent"}`, color:tab===t?"var(--accent)":"var(--text2)", fontWeight:600, fontSize:"0.9rem", cursor:"pointer", transition:"all 0.2s" }}>{l}</button>
+      {/* Tabs */}
+      <div style={{ display:"flex", borderBottom:"1px solid var(--border)", marginBottom:24 }}>
+        {[["products",`Products (${prodTotal})`],["brands",`Brands (${brandTotal})`]].map(([t,l]) => (
+          <button key={t} onClick={() => setTab(t)} style={{ padding:"10px 20px", background:"none", border:"none", borderBottom:`2px solid ${tab===t?"var(--accent)":"transparent"}`, color:tab===t?"var(--accent)":"var(--text2)", fontWeight:600, fontSize:"0.9rem", cursor:"pointer" }}>{l}</button>
         ))}
       </div>
 
+      {/* Products tab */}
       {tab === "products" && (
         <>
-          {paginated.length === 0
+          {products.length === 0 && !prodLoading
             ? <EmptyState icon="search_off" title="No products found" sub="Try adjusting your search or filters" />
-            : <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(200px, 1fr))", gap:16, marginBottom:32 }}>{paginated.map(p => <ProductCard key={p.id} product={p} />)}</div>
+            : <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(200px, 1fr))", gap:16, marginBottom:24 }}>
+                {products.map(p => <ProductCard key={p.id} product={{ ...p, brand: p.brand_id, brandData: p.brands }} />)}
+              </div>
           }
-          {totalPages > 1 && (
-            <div style={{ display:"flex", justifyContent:"center", gap:8, flexWrap:"wrap" }}>
-              <Btn size="sm" variant="secondary" disabled={currentPage===1} onClick={() => setCurrentPage(p => p-1)}>← Prev</Btn>
-              {Array.from({length:totalPages},(_,i) => (
-                <button key={i} onClick={() => setCurrentPage(i+1)} style={{ width:36, height:36, borderRadius:8, border:"1px solid var(--border)", background:currentPage===i+1?"var(--accent)":"var(--bg3)", color:currentPage===i+1?"#fff":"var(--text)", cursor:"pointer", fontWeight:600, fontSize:"0.85rem" }}>{i+1}</button>
-              ))}
-              <Btn size="sm" variant="secondary" disabled={currentPage===totalPages} onClick={() => setCurrentPage(p => p+1)}>Next →</Btn>
+          {prodLoading && <div style={{ display:"flex", justifyContent:"center", padding:32 }}><Spinner /></div>}
+          {hasMoreProducts && !prodLoading && (
+            <div style={{ display:"flex", justifyContent:"center", marginBottom:32 }}>
+              <Btn variant="secondary" onClick={() => loadProducts(prodPage + 1)}>
+                <Icon name="expand_more" size={18} />Load More Products
+              </Btn>
             </div>
           )}
         </>
       )}
 
+      {/* Brands tab */}
       {tab === "brands" && (
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(260px, 1fr))", gap:16 }}>
-          {filteredBrands.length === 0
+        <>
+          {brands.length === 0 && !brandLoading
             ? <EmptyState icon="storefront" title="No brands found" sub="Try a different search term" />
-            : filteredBrands.map(b => <BrandCard key={b.id} brand={b} />)
+            : <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(260px, 1fr))", gap:16, marginBottom:24 }}>
+                {brands.map(b => <BrandCard key={b.id} brand={b} />)}
+              </div>
           }
-        </div>
+          {brandLoading && <div style={{ display:"flex", justifyContent:"center", padding:32 }}><Spinner /></div>}
+          {hasMoreBrands && !brandLoading && (
+            <div style={{ display:"flex", justifyContent:"center", marginBottom:32 }}>
+              <Btn variant="secondary" onClick={() => loadBrands(brandPage + 1)}>
+                <Icon name="expand_more" size={18} />Load More Brands
+              </Btn>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

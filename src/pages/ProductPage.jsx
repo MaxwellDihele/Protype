@@ -1,22 +1,56 @@
-import { useState } from "react";
+//Updated
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { supabase } from "../lib/supabase";
 import { useApp } from "../context/AppContext";
-import { Badge, Btn, Icon, EmptyState, SectionHeader } from "../components/ui";
+import { Badge, Btn, Icon, EmptyState, SectionHeader, Spinner } from "../components/ui";
 import { ProductCard } from "../components/cards";
 
 export const ProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { products, brands } = useApp();
-  const product = products.find(p => p.id === id);
-  const [imgIdx, setImgIdx] = useState(0);
+  const { incrementViews } = useApp();
+  const [product,  setProduct]  = useState(null);
+  const [brand,    setBrand]    = useState(null);
+  const [related,  setRelated]  = useState([]);
+  const [loading,  setLoading]  = useState(true);
+  const [imgIdx,   setImgIdx]   = useState(0);
 
+  useEffect(() => {
+    const load = async () => {
+      setLoading(true);
+      const { data: prod } = await supabase
+        .from("products")
+        .select("*, brands(*)")
+        .eq("id", id)
+        .single();
+      if (!prod) { setLoading(false); return; }
+
+      setProduct(prod);
+      setBrand(prod.brands);
+
+      // increment views (fire-and-forget)
+      incrementViews(id);
+
+      // related products
+      const { data: rel } = await supabase
+        .from("products")
+        .select("*, brands(*)")
+        .eq("category", prod.category)
+        .neq("id", id)
+        .limit(4);
+      setRelated(rel || []);
+      setLoading(false);
+    };
+    load();
+  }, [id]);
+
+  if (loading) return <div style={{ display:"flex", justifyContent:"center", padding:80 }}><Spinner /></div>;
   if (!product) return <EmptyState icon="inventory_2" title="Product not found" sub="" action={<Btn onClick={() => navigate("/")}>Go Home</Btn>} />;
 
-  const brand   = brands.find(b => b.id === product.brand);
-  const wa      = `https://wa.me/${brand?.whatsapp}?text=${encodeURIComponent(`Hi! I'm interested in "${product.name}" (R${product.price}) from your MzansiStreet listing. Is it available?`)}`;
-  const related = products.filter(p => p.category === product.category && p.id !== product.id).slice(0,4);
-  const hasCTA  = brand?.whatsapp || brand?.website;
+  const images = Array.isArray(product.images) ? product.images : [product.images].filter(Boolean);
+  const wa     = `https://wa.me/${brand?.whatsapp}?text=${encodeURIComponent(`Hi! I'm interested in "${product.name}" (R${product.price}) from your MzansiStreet listing. Is it available?`)}`;
+  const hasCTA = brand?.whatsapp || brand?.website;
 
   return (
     <>
@@ -39,6 +73,7 @@ export const ProductPage = () => {
       `}</style>
 
       <div className="fade-in" style={{ maxWidth:1200, margin:"0 auto" }}>
+        {/* Breadcrumb */}
         <div style={{ display:"flex", gap:6, alignItems:"center", flexWrap:"wrap", padding:"14px 16px", fontSize:"0.8rem", color:"var(--text2)", borderBottom:"1px solid var(--border)" }}>
           <span onClick={() => navigate("/")} style={{ cursor:"pointer", color:"var(--accent)", display:"flex", alignItems:"center", gap:4 }}><Icon name="home" size={14} color="var(--accent)" />Home</span>
           <Icon name="chevron_right" size={14} color="var(--text3)" />
@@ -48,13 +83,14 @@ export const ProductPage = () => {
         </div>
 
         <div className="product-layout">
+          {/* Gallery */}
           <div className="product-gallery-col">
             <div style={{ aspectRatio:"1/1", overflow:"hidden", background:"var(--bg2)" }}>
-              <img src={product.images[imgIdx]} alt={product.name} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }} />
+              <img src={images[imgIdx] || `https://api.dicebear.com/7.x/shapes/svg?seed=${product.id}`} alt={product.name} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }} />
             </div>
-            {product.images.length > 1 && (
+            {images.length > 1 && (
               <div style={{ display:"flex", gap:8, padding:"10px 16px", overflowX:"auto", background:"var(--bg2)", borderBottom:"1px solid var(--border)" }}>
-                {product.images.map((img,i) => (
+                {images.map((img,i) => (
                   <div key={i} onClick={() => setImgIdx(i)} className="product-thumb"
                     style={{ borderRadius:8, overflow:"hidden", flexShrink:0, cursor:"pointer", border:`2px solid ${imgIdx===i?"var(--accent)":"var(--border)"}`, opacity:imgIdx===i?1:0.6, transition:"border-color 0.2s, opacity 0.2s" }}>
                     <img src={img} alt="" style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }} />
@@ -64,10 +100,11 @@ export const ProductPage = () => {
             )}
           </div>
 
+          {/* Details */}
           <div className="product-detail-col">
             {brand && (
               <div onClick={() => navigate(`/brand/${brand.id}`)} style={{ display:"flex", alignItems:"center", gap:10, marginBottom:14, cursor:"pointer", padding:"10px 0", borderBottom:"1px solid var(--border)" }}>
-                <img src={brand.logo} alt={brand.name} style={{ width:36, height:36, borderRadius:8, flexShrink:0 }} />
+                <img src={brand.logo || `https://api.dicebear.com/7.x/shapes/svg?seed=${brand.id}`} alt={brand.name} style={{ width:36, height:36, borderRadius:8, flexShrink:0 }} />
                 <div style={{ flex:1, minWidth:0 }}>
                   <div style={{ fontWeight:700, fontSize:"0.9rem", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis" }}>{brand.name}</div>
                   <div style={{ fontSize:"0.72rem", color:"var(--text3)" }}>View brand profile →</div>
@@ -79,7 +116,7 @@ export const ProductPage = () => {
             <h1 style={{ fontFamily:"'Bebas Neue', sans-serif", fontSize:"clamp(2rem, 6vw, 3rem)", lineHeight:1.05, letterSpacing:"0.03em", color:"var(--text)", marginBottom:12, wordBreak:"break-word" }}>{product.name}</h1>
 
             <div style={{ display:"flex", alignItems:"center", gap:12, marginBottom:20, flexWrap:"wrap" }}>
-              <span style={{ fontFamily:"'Bebas Neue'", fontSize:"2.4rem", color:"var(--accent)", letterSpacing:"0.04em", lineHeight:1 }}>R {product.price.toLocaleString()}</span>
+              <span style={{ fontFamily:"'Bebas Neue'", fontSize:"2.4rem", color:"var(--accent)", letterSpacing:"0.04em", lineHeight:1 }}>R {Number(product.price).toLocaleString()}</span>
               <Badge status={product.stock} />
             </div>
 
@@ -89,7 +126,7 @@ export const ProductPage = () => {
             </div>
 
             <div className="product-meta-grid" style={{ marginBottom:24 }}>
-              {[["category","Category",product.category],["event_note","Listed",product.created_at],["visibility","Views",product.views.toLocaleString()]].map(([icon,k,v]) => (
+              {[["category","Category",product.category],["event_note","Listed",product.created_at?.split("T")[0]],["visibility","Views",(product.views||0).toLocaleString()]].map(([icon,k,v]) => (
                 <div key={k} style={{ background:"var(--bg3)", padding:"12px 14px", borderRadius:10, border:"1px solid var(--border)" }}>
                   <div style={{ display:"flex", alignItems:"center", gap:5, marginBottom:5 }}>
                     <Icon name={icon} size={13} color="var(--text3)" />
@@ -111,7 +148,7 @@ export const ProductPage = () => {
           <section style={{ padding:"32px 16px", borderTop:"1px solid var(--border)" }}>
             <SectionHeader title="More in This Category" sub="" />
             <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(160px, 1fr))", gap:14 }}>
-              {related.map(p => <ProductCard key={p.id} product={p} />)}
+              {related.map(p => <ProductCard key={p.id} product={{ ...p, brand: p.brand_id, brandData: p.brands }} />)}
             </div>
           </section>
         )}

@@ -67,7 +67,7 @@ function InnerApp() {
 export default function App() {
 	logToScreen("APP STARTED"); // 👈 here
   return (
-  <>
+<>
       {/* Debug Console */}
       <div
         id="debug-console"

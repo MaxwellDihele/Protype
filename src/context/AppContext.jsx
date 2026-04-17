@@ -1,11 +1,14 @@
 import { createContext, useContext, useState, useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 
 export const AppContext = createContext(null);
 export const useApp = () => useContext(AppContext);
 
-export function AppProvider({ children }) {
-	console.log("AppProvider mounted");
+// ── Inner component — has access to router hooks because it lives inside <BrowserRouter>
+function AppProviderInner({ children }) {
+  const rrNavigate = useNavigate();
+
   const [theme,       setTheme]       = useState("dark");
   const [user,        setUser]        = useState(null);
   const [toast,       setToast]       = useState(null);
@@ -19,15 +22,16 @@ export function AppProvider({ children }) {
     });
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       if (session?.user) await loadProfile(session.user);
-      else setUser(null);
+      else { setUser(null); setAuthLoading(false); }
     });
     return () => subscription.unsubscribe();
-  }, []);
+  }, []); // eslint-disable-line
 
   const loadProfile = async (authUser) => {
     const { data: profile } = await supabase
       .from("profiles").select("*").eq("id", authUser.id).single();
     setUser(profile ? { ...authUser, ...profile } : authUser);
+    setAuthLoading(false);
   };
 
   // ── Toast ────────────────────────────────────────────────────────────────────
@@ -59,17 +63,16 @@ export function AppProvider({ children }) {
     if (error) return { error };
     await loadProfile(data.user);
     return { data };
-  }, []);
+  }, []); // eslint-disable-line
 
   // ── Auth: Logout ─────────────────────────────────────────────────────────────
   const logout = useCallback(async () => {
     await supabase.auth.signOut();
     setUser(null);
-  }, []);
+    rrNavigate("/");
+  }, [rrNavigate]);
 
   // ── Storage: Upload image ────────────────────────────────────────────────────
-  // bucket: "product-images" | "brand-assets"
-  // path: e.g. `${userId}/${Date.now()}.jpg`
   const uploadImage = useCallback(async (file, bucket, path) => {
     const { error } = await supabase.storage.from(bucket).upload(path, file, {
       cacheControl: "3600", upsert: true,
@@ -109,34 +112,24 @@ export function AppProvider({ children }) {
 
   // ── Badge Applications ───────────────────────────────────────────────────────
   const applyForBadge = useCallback(async (brandId, badgeType, reason) => {
-    // Upsert so re-applying replaces any previous rejected application
     const { error } = await supabase.from("badge_applications").upsert({
-      brand_id: brandId,
-      badge_type: badgeType,   // "verified" | "featured"
-      reason,
-      status: "pending",
-      applied_at: new Date().toISOString(),
-      reviewed_at: null,
-      admin_note: null,
+      brand_id: brandId, badge_type: badgeType, reason,
+      status: "pending", applied_at: new Date().toISOString(),
+      reviewed_at: null, admin_note: null,
     }, { onConflict: "brand_id,badge_type" });
     if (error) throw error;
   }, []);
 
   const reviewApplication = useCallback(async (appId, decision, adminNote = "") => {
-    // decision: "approved" | "rejected"
     const { data: app, error: fetchErr } = await supabase
       .from("badge_applications").select("*").eq("id", appId).single();
     if (fetchErr) throw fetchErr;
-
-    // Update the application
     const { error } = await supabase.from("badge_applications").update({
       status: decision,
       reviewed_at: new Date().toISOString(),
       admin_note: adminNote,
     }).eq("id", appId);
     if (error) throw error;
-
-    // If approved, update the brand status
     if (decision === "approved") {
       await supabase.from("brands").update({ status: app.badge_type }).eq("id", app.brand_id);
     }
@@ -155,4 +148,9 @@ export function AppProvider({ children }) {
       {children}
     </AppContext.Provider>
   );
+}
+
+// ── Public export — must be placed INSIDE <BrowserRouter> in App.jsx ──────────
+export function AppProvider({ children }) {
+  return <AppProviderInner>{children}</AppProviderInner>;
 }

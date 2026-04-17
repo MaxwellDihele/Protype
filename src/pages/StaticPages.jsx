@@ -2,43 +2,59 @@ import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
 import { useApp } from "../context/AppContext";
-import { CATEGORIES } from "../data/seed";
-import { Icon, Btn, Card, EmptyState, Input, Spinner } from "../components/ui";
+import { CATEGORIES, SA_CITIES } from "../data/seed";
+import { Icon, Btn, Card, EmptyState, Input, Select, Spinner } from "../components/ui";
 import { BrandCard } from "../components/cards";
 
 const PAGE_SIZE = 12;
 
 // ─── BrandsPage ───────────────────────────────────────────────────────────────
 export const BrandsPage = () => {
-  const navigate = useNavigate();
   const [filter,  setFilter]  = useState("all");
   const [query,   setQuery]   = useState("");
   const [brands,  setBrands]  = useState([]);
   const [total,   setTotal]   = useState(0);
   const [page,    setPage]    = useState(0);
   const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
 
-  const load = useCallback(async (pg) => {
+  const load = useCallback(async (pg, reset = false) => {
     setLoading(true);
     let q = supabase.from("brands").select("*", { count:"exact" });
     if (filter === "featured") q = q.eq("status","featured");
     if (filter === "verified") q = q.in("status",["verified","featured"]);
-    if (query) q = q.ilike("name", `%${query}%`);
-    q = q.order("created_at",{ascending:false}).range(pg*PAGE_SIZE,(pg+1)*PAGE_SIZE-1);
-    const { data, count } = await q;
-    setBrands(prev => pg===0?(data||[]):[...prev,...(data||[])]);
-    setTotal(count||0); setPage(pg); setLoading(false);
-  }, [filter, query]);
+    if (query.trim()) q = q.ilike("name", `%${query.trim()}%`);
+    q = q.order("created_at", { ascending:false }).range(pg * PAGE_SIZE, (pg + 1) * PAGE_SIZE - 1);
+    const { data, count, error } = await q;
+    if (!error) {
+      const newItems = data || [];
+      setBrands(prev => (reset || pg === 0) ? newItems : [...prev, ...newItems]);
+      setTotal(count || 0);
+      setPage(pg);
+      setHasMore((reset || pg === 0) ? newItems.length < (count||0) : (brands.length + newItems.length) < (count||0));
+    }
+    setLoading(false);
+  }, [filter, query, brands.length]);
 
-  useEffect(() => { setBrands([]); setPage(0); load(0); }, [load]);
+  // Reset + reload when filters change
+  useEffect(() => {
+    setBrands([]);
+    setPage(0);
+    setHasMore(false);
+    load(0, true);
+  }, [filter, query]); // eslint-disable-line
+
+  const loadMore = () => load(page + 1);
 
   return (
     <div className="fade-in" style={{ maxWidth:1200, margin:"0 auto", padding:"32px 16px" }}>
       <h1 style={{ fontSize:"2.5rem", marginBottom:8 }}>All Brands</h1>
       <p style={{ color:"var(--text2)", marginBottom:24 }}>Discover South African local brands</p>
+
+      {/* Filters */}
       <div style={{ display:"flex", gap:12, marginBottom:24, flexWrap:"wrap" }}>
         <div style={{ position:"relative", flex:"1 1 220px" }}>
-          <input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search brands..."
+          <input value={query} onChange={e => setQuery(e.target.value)} placeholder="Search brands..."
             style={{ width:"100%", background:"var(--bg3)", border:"1px solid var(--border2)", borderRadius:10, padding:"10px 16px 10px 40px", color:"var(--text)", fontSize:"0.9rem", outline:"none" }} />
           <span style={{ position:"absolute", left:10, top:"50%", transform:"translateY(-50%)", display:"flex" }}>
             <Icon name="search" size={18} color="var(--text3)" />
@@ -53,16 +69,31 @@ export const BrandsPage = () => {
           ))}
         </div>
       </div>
-      {brands.length===0&&!loading
+
+      {/* Count */}
+      {total > 0 && (
+        <p style={{ color:"var(--text3)", fontSize:"0.82rem", marginBottom:16 }}>
+          Showing {brands.length} of {total} brand{total !== 1 ? "s" : ""}
+        </p>
+      )}
+
+      {/* Grid */}
+      {brands.length === 0 && !loading
         ? <EmptyState icon="storefront" title="No brands found" sub="Try different filters" />
         : <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(280px, 1fr))", gap:16, marginBottom:24 }}>
-            {brands.map(b=><BrandCard key={b.id} brand={b} />)}
+            {brands.map(b => <BrandCard key={b.id} brand={b} />)}
           </div>
       }
-      {loading && <div style={{ display:"flex", justifyContent:"center", padding:32 }}><Spinner /></div>}
-      {brands.length<total&&!loading && (
+
+      {/* Loading spinner */}
+      {loading && (
+        <div style={{ display:"flex", justifyContent:"center", padding:32 }}><Spinner /></div>
+      )}
+
+      {/* Load More button */}
+      {hasMore && !loading && (
         <div style={{ display:"flex", justifyContent:"center", marginBottom:32 }}>
-          <Btn variant="secondary" onClick={() => load(page+1)}>
+          <Btn variant="secondary" onClick={loadMore} style={{ minWidth:200 }}>
             <Icon name="expand_more" size={18} />Load More Brands
           </Btn>
         </div>
@@ -77,14 +108,14 @@ const CAT_COLORS = { Fashion:"#f43f5e", Sneakers:"#f97316", Streetwear:"#8b5cf6"
 
 export const CategoriesPage = () => {
   const navigate = useNavigate();
-  const [cats, setCats] = useState(CATEGORIES.map(c=>({name:c,count:0})));
+  const [cats, setCats] = useState(CATEGORIES.map(c => ({ name:c, count:0 })));
 
   useEffect(() => {
-    supabase.from("products").select("category").then(({data}) => {
+    supabase.from("products").select("category").then(({ data }) => {
       if (!data) return;
       const counts = {};
-      data.forEach(r => { counts[r.category]=(counts[r.category]||0)+1; });
-      setCats(CATEGORIES.map(c=>({name:c,count:counts[c]||0})));
+      data.forEach(r => { counts[r.category] = (counts[r.category] || 0) + 1; });
+      setCats(CATEGORIES.map(c => ({ name:c, count:counts[c] || 0 })));
     });
   }, []);
 
@@ -94,14 +125,14 @@ export const CategoriesPage = () => {
       <p style={{ color:"var(--text2)", marginBottom:32 }}>Browse by product category</p>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(180px, 1fr))", gap:16 }}>
         {cats.map(c => {
-          const color = CAT_COLORS[c.name]||"var(--accent)";
+          const color = CAT_COLORS[c.name] || "var(--accent)";
           return (
             <Card key={c.name} onClick={() => navigate(`/search?category=${encodeURIComponent(c.name)}`)} style={{ padding:28, textAlign:"center" }}>
               <div style={{ display:"flex", alignItems:"center", justifyContent:"center", width:60, height:60, borderRadius:16, background:`${color}18`, margin:"0 auto 14px", border:`1.5px solid ${color}33` }}>
-                <Icon name={CAT_ICONS[c.name]||"category"} size={30} color={color} />
+                <Icon name={CAT_ICONS[c.name] || "category"} size={30} color={color} />
               </div>
               <div style={{ fontWeight:700, marginBottom:4 }}>{c.name}</div>
-              <div style={{ fontSize:"0.8rem", color:"var(--text2)" }}>{c.count} product{c.count!==1?"s":""}</div>
+              <div style={{ fontSize:"0.8rem", color:"var(--text2)" }}>{c.count} product{c.count !== 1 ? "s" : ""}</div>
             </Card>
           );
         })}
@@ -116,17 +147,16 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const [tab,       setTab]       = useState("login");
   const [loading,   setLoading]   = useState(false);
-  // Login fields
-  const [email,    setEmail]    = useState("");
-  const [password, setPassword] = useState("");
-  // Sign-up extra fields
+  const [email,     setEmail]     = useState("");
+  const [password,  setPassword]  = useState("");
   const [name,      setName]      = useState("");
   const [brandName, setBrandName] = useState("");
   const [category,  setCategory]  = useState(CATEGORIES[0]);
+  const [location,  setLocation]  = useState(SA_CITIES[0]);
   const [confirmPw, setConfirmPw] = useState("");
 
   const handleLogin = async () => {
-    if (!email||!password) return;
+    if (!email || !password) return;
     setLoading(true);
     const { error } = await login(email, password);
     setLoading(false);
@@ -135,25 +165,26 @@ export const LoginPage = () => {
   };
 
   const handleSignUp = async () => {
-    if (!email||!password||!name||!brandName) { showToast("Please fill in all fields", "error"); return; }
+    if (!email || !password || !name || !brandName) { showToast("Please fill in all fields", "error"); return; }
     if (password.length < 6) { showToast("Password must be at least 6 characters", "error"); return; }
     if (password !== confirmPw) { showToast("Passwords do not match", "error"); return; }
     setLoading(true);
-    const { error } = await signUp({ email, password, name, brandName, category });
+    const { error } = await signUp({ email, password, name, brandName, category, location });
     setLoading(false);
     if (error) showToast(error.message, "error");
     else showToast("Account created! Check your email to confirm before logging in.");
   };
 
+  const labelStyle = { fontSize:"0.8rem", fontWeight:600, color:"var(--text2)", textTransform:"uppercase", letterSpacing:"0.08em" };
+
   return (
     <div className="fade-in" style={{ minHeight:"calc(100vh - 120px)", display:"flex", alignItems:"center", justifyContent:"center", padding:16 }}>
       <div style={{ width:"100%", maxWidth:460 }}>
         <Card style={{ overflow:"visible" }}>
-          {/* Tab switcher */}
           <div style={{ display:"flex", borderBottom:"1px solid var(--border)" }}>
             {[["login","Sign In"],["signup","Create Account"]].map(([t,l]) => (
               <button key={t} onClick={() => setTab(t)}
-                style={{ flex:1, padding:"14px 20px", background:"none", border:"none", borderBottom:`3px solid ${tab===t?"var(--accent)":"transparent"}`, color:tab===t?"var(--accent)":"var(--text2)", fontWeight:700, fontSize:"0.95rem", cursor:"pointer", transition:"all 0.2s" }}>
+                style={{ flex:1, padding:"14px 20px", background:"none", border:"none", borderBottom:`3px solid ${tab===t?"var(--accent)":"transparent"}`, color:tab===t?"var(--accent)":"var(--text2)", fontWeight:700, fontSize:"0.95rem", cursor:"pointer" }}>
                 {l}
               </button>
             ))}
@@ -166,7 +197,7 @@ export const LoginPage = () => {
                 <p style={{ color:"var(--text2)", fontSize:"0.88rem", marginBottom:24 }}>Sign in to your seller account</p>
                 <div style={{ display:"flex", flexDirection:"column", gap:14, marginBottom:22 }}>
                   <Input label="Email"    value={email}    onChange={setEmail}    type="email"    placeholder="you@brand.co.za" />
-                  <Input label="Password" value={password} onChange={v => { setPassword(v); if(v.length && v.length<6) {} }} type="password" placeholder="••••••••" />
+                  <Input label="Password" value={password} onChange={setPassword} type="password" placeholder="••••••••" />
                 </div>
                 <Btn variant="primary" size="lg" full onClick={handleLogin} disabled={loading}>
                   {loading ? "Signing in…" : "Sign In"}
@@ -182,18 +213,27 @@ export const LoginPage = () => {
                 <p style={{ color:"var(--text2)", fontSize:"0.88rem", marginBottom:24 }}>Create a free seller account to start listing products</p>
                 <div style={{ display:"flex", flexDirection:"column", gap:14, marginBottom:22 }}>
                   <Input label="Your Name"  value={name}      onChange={setName}      placeholder="Siya Ndlovu" required />
-                  <Input label="Email"      value={email}     onChange={setEmail}     type="email"    placeholder="you@brand.co.za" required />
+                  <Input label="Email"      value={email}     onChange={setEmail}     type="email" placeholder="you@brand.co.za" required />
                   <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
                     <Input label="Password"         value={password}  onChange={setPassword}  type="password" placeholder="Min 6 chars" required />
                     <Input label="Confirm Password" value={confirmPw} onChange={setConfirmPw} type="password" placeholder="Repeat password" required />
                   </div>
                   <Input label="Brand Name" value={brandName} onChange={setBrandName} placeholder="e.g. Skhokho Studios" required />
-                  <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
-                    <label style={{ fontSize:"0.8rem", fontWeight:600, color:"var(--text2)", textTransform:"uppercase", letterSpacing:"0.08em" }}>Brand Category *</label>
-                    <select value={category} onChange={e=>setCategory(e.target.value)}
-                      style={{ background:"var(--bg3)", border:"1px solid var(--border2)", borderRadius:10, padding:"10px 14px", color:"var(--text)", fontSize:"0.95rem", outline:"none", width:"100%", cursor:"pointer" }}>
-                      {CATEGORIES.map(c=><option key={c} value={c}>{c}</option>)}
-                    </select>
+                  <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:12 }}>
+                    <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+                      <label style={labelStyle}>Brand Category *</label>
+                      <select value={category} onChange={e => setCategory(e.target.value)}
+                        style={{ background:"var(--bg3)", border:"1px solid var(--border2)", borderRadius:10, padding:"10px 14px", color:"var(--text)", fontSize:"0.95rem", outline:"none", width:"100%", cursor:"pointer" }}>
+                        {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                    </div>
+                    <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+                      <label style={labelStyle}>Location *</label>
+                      <select value={location} onChange={e => setLocation(e.target.value)}
+                        style={{ background:"var(--bg3)", border:"1px solid var(--border2)", borderRadius:10, padding:"10px 14px", color:"var(--text)", fontSize:"0.95rem", outline:"none", width:"100%", cursor:"pointer" }}>
+                        {SA_CITIES.map(c => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                    </div>
                   </div>
                 </div>
                 <Btn variant="primary" size="lg" full onClick={handleSignUp} disabled={loading}>

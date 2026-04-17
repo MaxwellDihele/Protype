@@ -14,20 +14,6 @@ import { BrandsPage, CategoriesPage, LoginPage } from "./pages/StaticPages";
 import { DashboardPage } from "./pages/DashboardPage";
 import { AdminPage }     from "./pages/AdminPage";
 
-//-----------------------------+++++++-------------------------------
-const logs = [];
-
-function logToScreen(message) {
-  logs.push(message);
-  const el = document.getElementById("debug-console");
-  if (el) {
-    el.innerHTML = logs.map(l => `<div>${l}</div>`).join("");
-  }
-}
-
-//‐----------------------------++++++++------------------------------
-
-
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
@@ -65,7 +51,7 @@ function InnerApp() {
 }
 
 export default function App() {
-	logToScreen("APP STARTED"); // 👈 here
+	
   return (
     <AppProvider>
       <BrowserRouter>

@@ -1,5 +1,3 @@
-//*Updated
-
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
@@ -177,7 +175,7 @@ const BrandEditForm = ({ brand, onSave, saving, onApplyBadge }) => {
   const [form, setForm] = useState({
     name: brand.name || "", description: brand.description || "",
     whatsapp: brand.whatsapp || "", website: brand.website || "",
-    instagram: brand.instagram || "", twitter: brand.twitter || "",
+    instagram: brand.instagram || "", twitter: brand.twitter || "", location: brand.location || "",
     logo: brand.logo || "", banner: brand.banner || "",
   });
   const set = k => v => setForm(f => ({ ...f, [k]: v }));
@@ -207,7 +205,8 @@ const BrandEditForm = ({ brand, onSave, saving, onApplyBadge }) => {
           <Input label="WhatsApp"         value={form.whatsapp}  onChange={set("whatsapp")}  placeholder="27821234567" />
           <Input label="Website"          value={form.website}   onChange={set("website")}   placeholder="https://..." />
           <Input label="Instagram"        value={form.instagram} onChange={set("instagram")} placeholder="yourbrand" />
-          <Input label="Twitter / X"      value={form.twitter}   onChange={set("twitter")}   placeholder="yourbrand" />
+          <Input label="Twitter / X" value={form.twitter} onChange={set("twitter")} placeholder="yourbrand" />
+          <Input label="Location" value={form.location} onChange={set("location")} placeholder="e.g. Cape Town, WC" />
         </div>
         <Textarea label="Description" value={form.description} onChange={set("description")} rows={4} />
         <div style={{ marginTop:16 }}>

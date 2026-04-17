@@ -1,5 +1,3 @@
-//Updated
-
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../lib/supabase";
@@ -8,7 +6,6 @@ import { Btn, Icon, SectionHeader, Spinner } from "../components/ui";
 import { ProductCard, BrandCard } from "../components/cards";
 
 export const HomePage = () => {
-	console.log("HomePage loaded");
   const navigate = useNavigate();
   const [featuredBrands, setFeaturedBrands] = useState([]);
   const [popular,        setPopular]        = useState([]);

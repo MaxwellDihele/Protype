@@ -50,6 +50,7 @@ function InnerApp() {
 }
 
 export default function App() {
+	console.log("APP STARTED");
   return (
     <AppProvider>
       <BrowserRouter>

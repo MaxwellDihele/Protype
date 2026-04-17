@@ -5,6 +5,7 @@ export const AppContext = createContext(null);
 export const useApp = () => useContext(AppContext);
 
 export function AppProvider({ children }) {
+	console.log("AppProvider mounted");
   const [theme,       setTheme]       = useState("dark");
   const [user,        setUser]        = useState(null);
   const [toast,       setToast]       = useState(null);

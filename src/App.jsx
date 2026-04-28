@@ -148,20 +148,20 @@ function makeTheme(dark) {
 
 /* ─────────────── PEOPLE DATA ─────────────── */
 const PEOPLE = [
-  { id:1,  name:"Zinhle Dube",       handle:"@zinhle_d",      avatar:"https://picsum.photos/seed/zinhle1/200/200",   role:"Model",            location:"Cape Town, ZA",    bio:"Fashion & commercial model. Lover of art, culture and the African sun.",        followers:8400,    following:210, projects:22,  rating:4.7, reviews:41,  verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/z1a/300/300","https://picsum.photos/seed/z1b/300/300","https://picsum.photos/seed/z1c/300/300","https://picsum.photos/seed/z1d/300/300"] },
-  { id:2,  name:"Kagiso Sithole",    handle:"@kagiso_s",      avatar:"https://picsum.photos/seed/kagiso2/200/200",   role:"Fashion Designer",  location:"Durban, ZA",       bio:"Designing bold African fashion for the modern world. Streetwear meets heritage.", followers:3200,    following:180, projects:15,  rating:4.5, reviews:28,  verified:false, isFollowing:false, portfolio:["https://picsum.photos/seed/k2a/300/300","https://picsum.photos/seed/k2b/300/300","https://picsum.photos/seed/k2c/300/300","https://picsum.photos/seed/k2d/300/300"] },
-  { id:3,  name:"Naledi Mokoena",    handle:"@naledi.m",      avatar:"https://picsum.photos/seed/naledi3/200/200",   role:"Makeup Artist",     location:"Pretoria, ZA",     bio:"Bridal, editorial & SFX makeup. Over 200 happy clients.",                      followers:12100,   following:304, projects:67,  rating:4.9, reviews:93,  verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/n3a/300/300","https://picsum.photos/seed/n3b/300/300","https://picsum.photos/seed/n3c/300/300","https://picsum.photos/seed/n3d/300/300"] },
-  { id:4,  name:"Bongani Khumalo",   handle:"@bongani_k",     avatar:"https://picsum.photos/seed/bongani4/200/200",  role:"Videographer",      location:"Johannesburg, ZA", bio:"Cinematic storytelling for brands, events & music videos.",                     followers:5700,    following:260, projects:34,  rating:4.6, reviews:52,  verified:false, isFollowing:false, portfolio:["https://picsum.photos/seed/b4a/300/300","https://picsum.photos/seed/b4b/300/300","https://picsum.photos/seed/b4c/300/300","https://picsum.photos/seed/b4d/300/300"] },
-  { id:5,  name:"Lerato Ntuli",      handle:"@lerato.ntuli",  avatar:"https://picsum.photos/seed/lerato5/200/200",   role:"Stylist",           location:"Sandton, ZA",      bio:"Celebrity stylist. Fashion week veteran.",                                      followers:9300,    following:190, projects:44,  rating:4.8, reviews:76,  verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/l5a/300/300","https://picsum.photos/seed/l5b/300/300","https://picsum.photos/seed/l5c/300/300","https://picsum.photos/seed/l5d/300/300"] },
-  { id:6,  name:"Sipho Nkosi",       handle:"@sipho_n",       avatar:"https://picsum.photos/seed/sipho6/200/200",    role:"Art Director",      location:"Cape Town, ZA",    bio:"Creative direction for lifestyle brands.",                                      followers:4100,    following:142, projects:19,  rating:4.4, reviews:33,  verified:false, isFollowing:false, portfolio:["https://picsum.photos/seed/s6a/300/300","https://picsum.photos/seed/s6b/300/300","https://picsum.photos/seed/s6c/300/300","https://picsum.photos/seed/s6d/300/300"] },
-  { id:7,  name:"Ayanda Mthembu",    handle:"@ayanda.m",      avatar:"https://picsum.photos/seed/ayanda7/200/200",   role:"Content Creator",   location:"Durban, ZA",       bio:"Travel & lifestyle content creator. Exploring Africa one post at a time 🌍",   followers:31000,   following:520, projects:88,  rating:4.7, reviews:110, verified:true,  isFollowing:false, portfolio:["https://picsum.photos/seed/a7a/300/300","https://picsum.photos/seed/a7b/300/300","https://picsum.photos/seed/a7c/300/300","https://picsum.photos/seed/a7d/300/300"] },
-  { id:8,  name:"Thabo Dlamini",     handle:"@thabo_d",       avatar:"https://picsum.photos/seed/thabo8/200/200",    role:"Photographer",      location:"Pretoria, ZA",     bio:"Documentary & street photographer. Telling South Africa's untold stories.",    followers:7200,    following:388, projects:29,  rating:4.8, reviews:64,  verified:false, isFollowing:true,  portfolio:["https://picsum.photos/seed/t8a/300/300","https://picsum.photos/seed/t8b/300/300","https://picsum.photos/seed/t8c/300/300","https://picsum.photos/seed/t8d/300/300"] },
-  { id:9,  name:"Minnie Dlamini",    handle:"@minniedlamini", avatar:"https://picsum.photos/seed/minnie9/200/200",   role:"TV Presenter",      location:"Johannesburg, ZA", bio:"TV presenter, actress & entrepreneur. Living my best life. ✨",               followers:2100000, following:890, projects:120, rating:4.9, reviews:202, verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/m9a/300/300","https://picsum.photos/seed/m9b/300/300","https://picsum.photos/seed/m9c/300/300","https://picsum.photos/seed/m9d/300/300"] },
-  { id:10, name:"Trevor Noah",       handle:"@trevornoah",    avatar:"https://picsum.photos/seed/trevor10/200/200",  role:"Comedian",          location:"New York / SA",    bio:"Comedian, author. Proudly South African 🇿🇦",                                 followers:8900000, following:420, projects:55,  rating:4.9, reviews:312, verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/tr10a/300/300","https://picsum.photos/seed/tr10b/300/300","https://picsum.photos/seed/tr10c/300/300","https://picsum.photos/seed/tr10d/300/300"] },
-  { id:11, name:"Nomzamo Mbatha",    handle:"@nomzamo_m",     avatar:"https://picsum.photos/seed/nomzamo11/200/200", role:"Actress",           location:"Los Angeles / SA", bio:"Actress, humanitarian & UNHCR Goodwill Ambassador. 🌍",                        followers:3400000, following:660, projects:78,  rating:5.0, reviews:188, verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/no11a/300/300","https://picsum.photos/seed/no11b/300/300","https://picsum.photos/seed/no11c/300/300","https://picsum.photos/seed/no11d/300/300"] },
-  { id:12, name:"DJ Zinhle",         handle:"@djzinhle",      avatar:"https://picsum.photos/seed/djzinhle12/200/200",role:"DJ & Entrepreneur", location:"Johannesburg, ZA", bio:"Award-winning DJ, entrepreneur & mother. Era by DJ Zinhle. 🎧",               followers:4200000, following:730, projects:96,  rating:4.8, reviews:174, verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/dj12a/300/300","https://picsum.photos/seed/dj12b/300/300","https://picsum.photos/seed/dj12c/300/300","https://picsum.photos/seed/dj12d/300/300"] },
-  { id:13, name:"Riky Rick Studio",  handle:"@rikyrickworld", avatar:"https://picsum.photos/seed/riky13/200/200",    role:"Creative Studio",   location:"Johannesburg, ZA", bio:"A creative collective honouring Riky Rick's legacy.",                          followers:980000,  following:310, projects:44,  rating:4.7, reviews:89,  verified:false, isFollowing:true,  portfolio:["https://picsum.photos/seed/rk13a/300/300","https://picsum.photos/seed/rk13b/300/300","https://picsum.photos/seed/rk13c/300/300","https://picsum.photos/seed/rk13d/300/300"] },
-  { id:14, name:"Sho Madjozi",       handle:"@shomadjozi",    avatar:"https://picsum.photos/seed/sho14/200/200",     role:"Musician",          location:"Johannesburg, ZA", bio:"BET Award winner. Tsonga girl changing the world through music 🎶",            followers:1700000, following:480, projects:62,  rating:4.9, reviews:143, verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/sh14a/300/300","https://picsum.photos/seed/sh14b/300/300","https://picsum.photos/seed/sh14c/300/300","https://picsum.photos/seed/sh14d/300/300"] },
+  { id:1,  name:"Zinhle Dube",       handle:"@zinhle_d",      avatar:"https://picsum.photos/seed/zinhle1/200/200",   role:"Model",            location:"Cape Town, ZA",    bio:"Fashion & commercial model. Lover of art, culture and the African sun.",        followers:8400,    following:210, projects:22,  rating:4.7, reviews:41,  verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/z1a/300/300","https://picsum.photos/seed/z1b/300/300","https://picsum.photos/seed/z1c/300/300","https://picsum.photos/seed/z1d/300/300"] , receiveEmails:true },
+  { id:2,  name:"Kagiso Sithole",    handle:"@kagiso_s",      avatar:"https://picsum.photos/seed/kagiso2/200/200",   role:"Fashion Designer",  location:"Durban, ZA",       bio:"Designing bold African fashion for the modern world. Streetwear meets heritage.", followers:3200,    following:180, projects:15,  rating:4.5, reviews:28,  verified:false, isFollowing:false, portfolio:["https://picsum.photos/seed/k2a/300/300","https://picsum.photos/seed/k2b/300/300","https://picsum.photos/seed/k2c/300/300","https://picsum.photos/seed/k2d/300/300"] , receiveEmails:false },
+  { id:3,  name:"Naledi Mokoena",    handle:"@naledi.m",      avatar:"https://picsum.photos/seed/naledi3/200/200",   role:"Makeup Artist",     location:"Pretoria, ZA",     bio:"Bridal, editorial & SFX makeup. Over 200 happy clients.",                      followers:12100,   following:304, projects:67,  rating:4.9, reviews:93,  verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/n3a/300/300","https://picsum.photos/seed/n3b/300/300","https://picsum.photos/seed/n3c/300/300","https://picsum.photos/seed/n3d/300/300"] , receiveEmails:true },
+  { id:4,  name:"Bongani Khumalo",   handle:"@bongani_k",     avatar:"https://picsum.photos/seed/bongani4/200/200",  role:"Videographer",      location:"Johannesburg, ZA", bio:"Cinematic storytelling for brands, events & music videos.",                     followers:5700,    following:260, projects:34,  rating:4.6, reviews:52,  verified:false, isFollowing:false, portfolio:["https://picsum.photos/seed/b4a/300/300","https://picsum.photos/seed/b4b/300/300","https://picsum.photos/seed/b4c/300/300","https://picsum.photos/seed/b4d/300/300"] , receiveEmails:false },
+  { id:5,  name:"Lerato Ntuli",      handle:"@lerato.ntuli",  avatar:"https://picsum.photos/seed/lerato5/200/200",   role:"Stylist",           location:"Sandton, ZA",      bio:"Celebrity stylist. Fashion week veteran.",                                      followers:9300,    following:190, projects:44,  rating:4.8, reviews:76,  verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/l5a/300/300","https://picsum.photos/seed/l5b/300/300","https://picsum.photos/seed/l5c/300/300","https://picsum.photos/seed/l5d/300/300"] , receiveEmails:true },
+  { id:6,  name:"Sipho Nkosi",       handle:"@sipho_n",       avatar:"https://picsum.photos/seed/sipho6/200/200",    role:"Art Director",      location:"Cape Town, ZA",    bio:"Creative direction for lifestyle brands.",                                      followers:4100,    following:142, projects:19,  rating:4.4, reviews:33,  verified:false, isFollowing:false, portfolio:["https://picsum.photos/seed/s6a/300/300","https://picsum.photos/seed/s6b/300/300","https://picsum.photos/seed/s6c/300/300","https://picsum.photos/seed/s6d/300/300"] , receiveEmails:false },
+  { id:7,  name:"Ayanda Mthembu",    handle:"@ayanda.m",      avatar:"https://picsum.photos/seed/ayanda7/200/200",   role:"Content Creator",   location:"Durban, ZA",       bio:"Travel & lifestyle content creator. Exploring Africa one post at a time 🌍",   followers:31000,   following:520, projects:88,  rating:4.7, reviews:110, verified:true,  isFollowing:false, portfolio:["https://picsum.photos/seed/a7a/300/300","https://picsum.photos/seed/a7b/300/300","https://picsum.photos/seed/a7c/300/300","https://picsum.photos/seed/a7d/300/300"] , receiveEmails:true },
+  { id:8,  name:"Thabo Dlamini",     handle:"@thabo_d",       avatar:"https://picsum.photos/seed/thabo8/200/200",    role:"Photographer",      location:"Pretoria, ZA",     bio:"Documentary & street photographer. Telling South Africa's untold stories.",    followers:7200,    following:388, projects:29,  rating:4.8, reviews:64,  verified:false, isFollowing:true,  portfolio:["https://picsum.photos/seed/t8a/300/300","https://picsum.photos/seed/t8b/300/300","https://picsum.photos/seed/t8c/300/300","https://picsum.photos/seed/t8d/300/300"] , receiveEmails:false },
+  { id:9,  name:"Minnie Dlamini",    handle:"@minniedlamini", avatar:"https://picsum.photos/seed/minnie9/200/200",   role:"TV Presenter",      location:"Johannesburg, ZA", bio:"TV presenter, actress & entrepreneur. Living my best life. ✨",               followers:2100000, following:890, projects:120, rating:4.9, reviews:202, verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/m9a/300/300","https://picsum.photos/seed/m9b/300/300","https://picsum.photos/seed/m9c/300/300","https://picsum.photos/seed/m9d/300/300"] , receiveEmails:true },
+  { id:10, name:"Trevor Noah",       handle:"@trevornoah",    avatar:"https://picsum.photos/seed/trevor10/200/200",  role:"Comedian",          location:"New York / SA",    bio:"Comedian, author. Proudly South African 🇿🇦",                                 followers:8900000, following:420, projects:55,  rating:4.9, reviews:312, verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/tr10a/300/300","https://picsum.photos/seed/tr10b/300/300","https://picsum.photos/seed/tr10c/300/300","https://picsum.photos/seed/tr10d/300/300"] , receiveEmails:true },
+  { id:11, name:"Nomzamo Mbatha",    handle:"@nomzamo_m",     avatar:"https://picsum.photos/seed/nomzamo11/200/200", role:"Actress",           location:"Los Angeles / SA", bio:"Actress, humanitarian & UNHCR Goodwill Ambassador. 🌍",                        followers:3400000, following:660, projects:78,  rating:5.0, reviews:188, verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/no11a/300/300","https://picsum.photos/seed/no11b/300/300","https://picsum.photos/seed/no11c/300/300","https://picsum.photos/seed/no11d/300/300"] , receiveEmails:true },
+  { id:12, name:"DJ Zinhle",         handle:"@djzinhle",      avatar:"https://picsum.photos/seed/djzinhle12/200/200",role:"DJ & Entrepreneur", location:"Johannesburg, ZA", bio:"Award-winning DJ, entrepreneur & mother. Era by DJ Zinhle. 🎧",               followers:4200000, following:730, projects:96,  rating:4.8, reviews:174, verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/dj12a/300/300","https://picsum.photos/seed/dj12b/300/300","https://picsum.photos/seed/dj12c/300/300","https://picsum.photos/seed/dj12d/300/300"] , receiveEmails:true },
+  { id:13, name:"Riky Rick Studio",  handle:"@rikyrickworld", avatar:"https://picsum.photos/seed/riky13/200/200",    role:"Creative Studio",   location:"Johannesburg, ZA", bio:"A creative collective honouring Riky Rick's legacy.",                          followers:980000,  following:310, projects:44,  rating:4.7, reviews:89,  verified:false, isFollowing:true,  portfolio:["https://picsum.photos/seed/rk13a/300/300","https://picsum.photos/seed/rk13b/300/300","https://picsum.photos/seed/rk13c/300/300","https://picsum.photos/seed/rk13d/300/300"] , receiveEmails:false },
+  { id:14, name:"Sho Madjozi",       handle:"@shomadjozi",    avatar:"https://picsum.photos/seed/sho14/200/200",     role:"Musician",          location:"Johannesburg, ZA", bio:"BET Award winner. Tsonga girl changing the world through music 🎶",            followers:1700000, following:480, projects:62,  rating:4.9, reviews:143, verified:true,  isFollowing:true,  portfolio:["https://picsum.photos/seed/sh14a/300/300","https://picsum.photos/seed/sh14b/300/300","https://picsum.photos/seed/sh14c/300/300","https://picsum.photos/seed/sh14d/300/300"] , receiveEmails:true },
 ];
 const FOLLOWERS_IDS = [1,2,3,4,5,6,7,8];
 const FOLLOWING_IDS = [9,10,11,12,13,14];
@@ -189,41 +189,87 @@ const fmtN = n => n >= 1e6 ? (n/1e6).toFixed(1)+"M" : n >= 1000 ? (n/1000).toFix
 const getPlatform = id => PLATFORM_PRESETS.find(p => p.id === id) || PLATFORM_PRESETS[PLATFORM_PRESETS.length-1];
 
 /* ─────────────── MINI PROFILE ─────────────── */
-function MiniProfile({ person, onBack, showToast, T }) {
+function MiniProfile({ person, onBack, showToast, T, onOpenMenu, myProfile }) {
   const [isFollowing, setIsFollowing] = useState(person.isFollowing);
   const [followerCount, setFollowerCount] = useState(person.followers);
-  const [activeTab, setActiveTab] = useState("links");
-  const baseLikes = person.portfolio.map((_,i) => 200 + (person.id*37 + i*113) % 900);
-  const [likedPhotos, setLikedPhotos] = useState({});
+  // Nested people modal & profile drill-down
+  const [peopleModal, setPeopleModal] = useState(null);
+  const [nestedProfile, setNestedProfile] = useState(null);
+  // Email compose state
+  const [showEmail, setShowEmail] = useState(false);
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailBody, setEmailBody] = useState("");
+  const [emailSending, setEmailSending] = useState(false);
+
+  // Derive follower/following IDs for this person
+  const personFollowerIds = PEOPLE.filter(p => p.id !== person.id && p.isFollowing).map(p=>p.id);
+  const personFollowingIds = PEOPLE.filter(p => p.id !== person.id).slice(0, 6).map(p=>p.id);
+
+  // Email rules:
+  // - recipient must be verified AND have receiveEmails on (for PEOPLE, simulate via person.verified + a flag we add)
+  // - sender (myProfile) must be verified
+  const recipientCanReceive = person.verified && (person.receiveEmails !== false);
+  const senderIsVerified = myProfile?.verified === true;
+  const canEmail = recipientCanReceive && senderIsVerified;
+
+  const sendEmail = () => {
+    if (!emailSubject.trim() || !emailBody.trim()) { showToast("Please fill in subject and message"); return; }
+    setEmailSending(true);
+    setTimeout(() => {
+      setEmailSending(false);
+      setShowEmail(false);
+      setEmailSubject("");
+      setEmailBody("");
+      showToast(`Email sent to ${person.name}!`);
+    }, 1200);
+  };
+
   const subLinks = [
     { uid:"s1", platformId:"instagram", label:"Instagram", handle:`@${person.handle.replace("@","")}`, url:"https://instagram.com" },
     { uid:"s2", platformId:"whatsapp",  label:"WhatsApp",  handle:"+27 80 000 0000", url:"https://wa.me/27800000000" },
   ];
+  const [previewLink, setPreviewLink] = useState(null);
+  const [miniTab, setMiniTab] = useState("links"); // "links" | "portfolio"
   const toggleFollow = () => {
     const next = !isFollowing; setIsFollowing(next); setFollowerCount(n => next ? n+1 : n-1);
     showToast(next ? `Now following ${person.name}` : `Unfollowed ${person.name}`);
   };
 
+  // Drill into a nested profile full-screen
+  if (nestedProfile) {
+    return <MiniProfile person={nestedProfile} onBack={()=>setNestedProfile(null)} showToast={showToast} T={T} onOpenMenu={onOpenMenu} myProfile={myProfile} />;
+  }
+
   return (
     <div style={{ position:"fixed", inset:0, zIndex:700, background:T.bodyBg, overflowY:"auto", fontFamily:"'DM Sans','Segoe UI',sans-serif", color:T.text }}>
-      <div style={{ position:"sticky", top:0, zIndex:10, display:"flex", alignItems:"center", gap:"12px", padding:"14px 18px", background:T.navBg, backdropFilter:"blur(16px)", borderBottom:`1px solid ${T.navBorder}` }}>
-        <button onClick={onBack} style={{ background:T.inputBg, border:`1px solid ${T.inputBorder}`, borderRadius:"50%", width:"34px", height:"34px", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer", color:T.text, flexShrink:0 }}>
-          <MI name="arrow_back" size={18} />
+
+      {/* ── NAV ── */}
+      <div style={{ position:"sticky", top:0, zIndex:10, display:"flex", alignItems:"center", gap:"12px", padding:"0 16px", height:"56px", background:T.navBg, backdropFilter:"blur(16px)", borderBottom:`1px solid ${T.navBorder}` }}>
+        {/* Back button */}
+        <button onClick={onBack} style={{ background:T.inputBg, border:`1px solid ${T.inputBorder}`, borderRadius:"10px", width:"36px", height:"36px", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer", flexShrink:0 }}>
+          <MI name="arrow_back" size={18} color={T.text} />
         </button>
-        <div style={{ flex:1 }}>
-          <div style={{ fontSize:"15px", fontWeight:"800", color:T.white, fontFamily:"'Playfair Display',Georgia,serif" }}>{person.name}</div>
+        {/* Name + handle */}
+        <div style={{ flex:1, minWidth:0 }}>
+          <div style={{ fontSize:"15px", fontWeight:"800", color:T.white, fontFamily:"'Playfair Display',Georgia,serif", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{person.name}</div>
           <div style={{ fontSize:"11px", color:T.subText }}>{person.handle}</div>
         </div>
-        <div style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#2a8a5a" }} />
+        {/* Hamburger — same style as main nav */}
+        <button style={{ background:T.inputBg, border:`1px solid ${T.inputBorder}`, borderRadius:"10px", width:"36px", height:"36px", cursor:"pointer", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"4px", flexShrink:0 }} onClick={onOpenMenu}>
+          {[22,22,15].map((w,i)=><div key={i} style={{ width:w, height:2, background:T.text, borderRadius:2 }} />)}
+        </button>
       </div>
+
+      {/* ── BODY ── */}
       <div className="uml-mini-inner" style={{ padding:"20px 16px 50px", maxWidth:"480px", margin:"0 auto" }}>
+        {/* Profile card */}
         <div style={{ background:T.cardBg, borderRadius:"22px", padding:"22px", marginBottom:"14px", border:`1px solid ${T.cardBorder}`, boxShadow:T.cardShadow }}>
           <div style={{ display:"flex", alignItems:"flex-start", gap:"16px", marginBottom:"14px" }}>
             <div style={{ position:"relative", flexShrink:0 }}>
               <LazyAvatar src={person.avatar} alt={person.name} size={72} border="3px solid #2a8a5a" />
               {person.verified && <div style={{ position:"absolute", bottom:2, right:2, background:"#2a8a5a", borderRadius:"50%", width:"18px", height:"18px", display:"flex", alignItems:"center", justifyContent:"center", border:`2px solid ${T.dark?"#1a1f2e":"#fff"}` }}><MI name="check" size={11} color="white" /></div>}
             </div>
-            <div style={{ flex:1 }}>
+            <div style={{ flex:1, minWidth:0 }}>
               <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"2px" }}>
                 <span className="uml-profile-name" style={{ fontSize:"17px", fontWeight:"800", color:T.white, fontFamily:"'Playfair Display',Georgia,serif" }}>{person.name}</span>
                 {person.verified && <MI name="verified" size={16} color="#2a8a5a" />}
@@ -236,85 +282,252 @@ function MiniProfile({ person, onBack, showToast, T }) {
             </div>
           </div>
           <p style={{ fontSize:"13px", color:T.subText, lineHeight:1.6, margin:"0 0 16px" }}>{person.bio}</p>
-          <div style={{ display:"flex", gap:"10px", marginBottom:"16px" }}>
+          {/* Follow + Email Me */}
+          <div style={{ display:"flex", gap:"10px", marginBottom:showEmail?"10px":"16px" }}>
             <button onClick={toggleFollow} style={{ flex:1, padding:"11px", borderRadius:"12px", border:"none", fontSize:"14px", fontWeight:"700", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"6px", background:isFollowing?"linear-gradient(135deg,#1d6b44,#155235)":"linear-gradient(135deg,#2a8a5a,#1e6b44)", color:"#fff", boxShadow:isFollowing?"none":"0 4px 14px rgba(42,138,90,0.3)" }}>
               <MI name={isFollowing?"how_to_reg":"person_add"} size={16} color="#fff" />
               {isFollowing ? "Following" : "Follow"}
             </button>
-            <button onClick={() => showToast(`Message sent to ${person.name}`)} style={{ flex:1, padding:"11px", borderRadius:"12px", fontSize:"14px", fontWeight:"700", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"6px", background:"transparent", border:`1.5px solid ${T.inputBorder}`, color:T.text }}>
-              <MI name="chat_bubble_outline" size={16} color={T.text} />
-              Message
+            <button
+              onClick={()=>{ if(canEmail) setShowEmail(e=>!e); }}
+              title={!senderIsVerified?"You need a verified ID to send emails":!recipientCanReceive?`${person.name} is not accepting emails`:""}
+              style={{ flex:1, padding:"11px", borderRadius:"12px", fontSize:"14px", fontWeight:"700", cursor:canEmail?"pointer":"not-allowed", display:"flex", alignItems:"center", justifyContent:"center", gap:"6px", background:showEmail?T.tagBg:"transparent", border:showEmail?`1.5px solid ${T.tagBorder}`:`1.5px solid ${T.inputBorder}`, color:canEmail?T.green:T.mutedText, opacity:canEmail?1:0.55, transition:"all .15s" }}>
+              <MI name="mail_outline" size={16} color={canEmail?T.green:T.mutedText} />
+              Email Me
             </button>
           </div>
+
+          {/* Disabled reason hint */}
+          {!canEmail && (
+            <div style={{ display:"flex", alignItems:"center", gap:"7px", padding:"8px 12px", borderRadius:"10px", background:"rgba(248,113,113,0.07)", border:"1px solid rgba(248,113,113,0.2)", marginBottom:"14px" }}>
+              <MI name="lock" size={14} color="#f87171" />
+              <span style={{ fontSize:"11px", color:"#f87171", fontWeight:"500" }}>
+                {!recipientCanReceive
+                  ? `${person.name} is not accepting emails${person.verified?"":" · unverified profile"}`
+                  : "You need a verified ID to send emails"}
+              </span>
+            </div>
+          )}
+
+          {/* Email compose panel */}
+          {showEmail && canEmail && (
+            <div style={{ background:T.sectionBg, borderRadius:"16px", padding:"16px", marginBottom:"16px", border:`1px solid ${T.cardBorder}` }}>
+              <div style={{ fontSize:"12px", fontWeight:"700", color:T.green, marginBottom:"12px", display:"flex", alignItems:"center", gap:"6px" }}>
+                <MI name="mail" size={14} color={T.green} />
+                Email {person.name}
+                <span style={{ marginLeft:"auto", fontSize:"10px", color:T.mutedText, fontWeight:"500" }}>Sent to their registered email</span>
+              </div>
+              {/* Subject */}
+              <div style={{ marginBottom:"10px" }}>
+                <div style={{ fontSize:"11px", color:T.subText, marginBottom:"5px", fontWeight:"600" }}>Subject</div>
+                <input
+                  value={emailSubject}
+                  onChange={e=>setEmailSubject(e.target.value)}
+                  placeholder="What's this about?"
+                  maxLength={120}
+                  style={{ width:"100%", background:T.inputBg, border:`1px solid ${T.inputBorder}`, borderRadius:"10px", padding:"10px 12px", fontSize:"13px", color:T.text, outline:"none", boxSizing:"border-box", fontFamily:"inherit", transition:"border-color .15s" }}
+                  onFocus={e=>e.target.style.borderColor="rgba(42,138,90,0.5)"}
+                  onBlur={e=>e.target.style.borderColor=T.inputBorder}
+                />
+              </div>
+              {/* Body */}
+              <div style={{ marginBottom:"12px" }}>
+                <div style={{ fontSize:"11px", color:T.subText, marginBottom:"5px", fontWeight:"600" }}>Message</div>
+                <textarea
+                  value={emailBody}
+                  onChange={e=>setEmailBody(e.target.value)}
+                  placeholder={`Write your message to ${person.name}…`}
+                  rows={4}
+                  maxLength={1000}
+                  style={{ width:"100%", background:T.inputBg, border:`1px solid ${T.inputBorder}`, borderRadius:"10px", padding:"10px 12px", fontSize:"13px", color:T.text, outline:"none", boxSizing:"border-box", fontFamily:"inherit", resize:"vertical", lineHeight:1.6, transition:"border-color .15s" }}
+                  onFocus={e=>e.target.style.borderColor="rgba(42,138,90,0.5)"}
+                  onBlur={e=>e.target.style.borderColor=T.inputBorder}
+                />
+                <div style={{ fontSize:"10px", color:T.mutedText, textAlign:"right", marginTop:"3px" }}>{emailBody.length}/1000</div>
+              </div>
+              {/* Verified sender badge */}
+              <div style={{ display:"flex", alignItems:"center", gap:"6px", padding:"7px 10px", borderRadius:"8px", background:T.tagBg, border:`1px solid ${T.tagBorder}`, marginBottom:"12px" }}>
+                <MI name="verified" size={13} color={T.green} />
+                <span style={{ fontSize:"11px", color:T.green, fontWeight:"600" }}>Sending as {myProfile?.handle || "you"} · Verified ID</span>
+              </div>
+              {/* Send + Cancel */}
+              <div style={{ display:"flex", gap:"8px" }}>
+                <button onClick={()=>{ setShowEmail(false); setEmailSubject(""); setEmailBody(""); }} style={{ flex:1, padding:"10px", background:T.inputBg, border:`1px solid ${T.inputBorder}`, borderRadius:"10px", color:T.subText, fontSize:"13px", fontWeight:"600", cursor:"pointer" }}>Cancel</button>
+                <button onClick={sendEmail} disabled={emailSending||!emailSubject.trim()||!emailBody.trim()}
+                  style={{ flex:2, padding:"10px", background:emailSending||!emailSubject.trim()||!emailBody.trim()?T.inputBg:"linear-gradient(135deg,#2a8a5a,#1e6b44)", border:"none", borderRadius:"10px", color:emailSending||!emailSubject.trim()||!emailBody.trim()?T.mutedText:"#fff", fontSize:"13px", fontWeight:"700", cursor:emailSending||!emailSubject.trim()||!emailBody.trim()?"not-allowed":"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"6px", transition:"all .15s", boxShadow:emailSending||!emailSubject.trim()||!emailBody.trim()?"none":"0 3px 12px rgba(42,138,90,0.28)" }}>
+                  <MI name={emailSending?"hourglass_empty":"send"} size={14} color={emailSending||!emailSubject.trim()||!emailBody.trim()?T.mutedText:"#fff"} />
+                  {emailSending ? "Sending…" : "Send Email"}
+                </button>
+              </div>
+            </div>
+          )}
+          {/* Stats — Followers + Following clickable */}
           <div style={{ display:"flex", paddingTop:"14px", borderTop:`1px solid ${T.divider}` }}>
-            {[{n:fmtN(followerCount),l:"Followers"},{n:fmtN(person.following),l:"Following"},{n:person.projects,l:"Projects"}].map((s,i) => (
-              <div key={s.l} style={{ flex:1, textAlign:"center", borderRight:i<2?`1px solid ${T.divider}`:"none" }}>
+            {[
+              {n:fmtN(followerCount), l:"Followers", action:()=>setPeopleModal({title:`Followers · ${fmtN(followerCount)}`, ids:personFollowerIds})},
+              {n:fmtN(person.following), l:"Following", action:()=>setPeopleModal({title:`Following · ${fmtN(person.following)}`, ids:personFollowingIds})},
+            ].map((s,i) => (
+              <button key={s.l} onClick={s.action||undefined} disabled={!s.action}
+                style={{ flex:1, background:"none", border:"none", cursor:s.action?"pointer":"default", padding:"8px 0", borderRight:i<1?`1px solid ${T.divider}`:"none", borderRadius:"8px" }}
+                onMouseEnter={e=>{if(s.action)e.currentTarget.style.background=T.hoverBg;}}
+                onMouseLeave={e=>e.currentTarget.style.background="none"}>
                 <div style={{ fontSize:"16px", fontWeight:"800", color:T.white }}>{s.n}</div>
-                <div style={{ fontSize:"11px", color:T.subText }}>{s.l}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div style={{ display:"flex", background:T.cardBg, borderRadius:"14px", padding:"4px", marginBottom:"14px", border:`1px solid ${T.cardBorder}` }}>
-          {["links","portfolio","about"].map(tab => (
-            <button key={tab} onClick={() => setActiveTab(tab)} style={{ flex:1, padding:"9px", borderRadius:"10px", border:"none", fontSize:"12px", fontWeight:"600", cursor:"pointer", background:activeTab===tab?"linear-gradient(135deg,#2a8a5a,#1e6b44)":"transparent", color:activeTab===tab?"#fff":T.subText }}>
-              {tab[0].toUpperCase()+tab.slice(1)}
-            </button>
-          ))}
-        </div>
-        {activeTab==="links" && (
-          <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
-            {subLinks.map(link => {
-              const plat = getPlatform(link.platformId);
-              return (
-                <a key={link.uid} href={link.url} target="_blank" rel="noreferrer" style={{ textDecoration:"none" }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:"14px", padding:"16px 18px", borderRadius:"16px", background:T.linkCard, border:`1px solid ${T.linkBorder}`, cursor:"pointer", boxShadow:T.dark?"none":"0 1px 8px rgba(30,40,80,0.06)" }}>
-                    <div style={{ width:"48px", height:"48px", borderRadius:"14px", background:plat.gradient, display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", flexShrink:0, boxShadow:`0 4px 16px ${plat.color}40` }}>{plat.icon}</div>
-                    <div style={{ flex:1 }}>
-                      <div style={{ fontSize:"15px", fontWeight:"700", color:T.white }}>{link.label}</div>
-                      <div style={{ fontSize:"12px", color:T.subText, marginTop:"1px" }}>{link.handle}</div>
-                    </div>
-                    <MI name="arrow_forward" size={18} color={plat.color} />
-                  </div>
-                </a>
-              );
-            })}
-          </div>
-        )}
-        {activeTab==="portfolio" && (
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px" }}>
-            {person.portfolio.map((src,i) => {
-              const liked = !!likedPhotos[i];
-              const count = baseLikes[i]+(liked?1:0);
-              return (
-                <div key={i} style={{ position:"relative", borderRadius:"14px", overflow:"hidden", height:"150px", cursor:"pointer" }} onClick={() => showToast("Opening photo…")}>
-                  <LazyImg src={src} alt="" style={{ width:"100%", height:"150px", borderRadius:"14px" }} onError={e=>{e.target.src=`https://picsum.photos/seed/fp${person.id}${i}/300/300`;}} />
-                  <div style={{ position:"absolute", inset:0, background:"linear-gradient(to top,rgba(0,0,0,0.65),transparent 55%)", display:"flex", alignItems:"flex-end", justifyContent:"flex-end", padding:"7px 8px" }}>
-                    <div style={{ display:"flex", alignItems:"center", gap:"3px", background:"rgba(0,0,0,0.45)", borderRadius:"20px", padding:"3px 8px", backdropFilter:"blur(4px)" }}>
-                      <MI name="favorite" size={11} color={liked?"#ff5a7e":"rgba(255,255,255,0.85)"} />
-                      <span style={{ fontSize:"10px", color:"#fff", fontWeight:"700" }}>{count>=1000?(count/1000).toFixed(1)+"k":count}</span>
-                    </div>
-                  </div>
-                  <button onClick={e=>{e.stopPropagation();setLikedPhotos(p=>({...p,[i]:!p[i]}));}} style={{ position:"absolute", top:"7px", right:"7px", background:liked?"rgba(225,50,70,0.88)":"rgba(0,0,0,0.45)", border:"none", borderRadius:"50%", width:"28px", height:"28px", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer", backdropFilter:"blur(4px)" }}>
-                    <MI name={liked?"favorite":"favorite_border"} size={14} color="white" />
-                  </button>
+                <div style={{ fontSize:"11px", color:s.action?T.green:T.subText, display:"flex", alignItems:"center", justifyContent:"center", gap:"2px" }}>
+                  {s.l}{s.action&&<MI name="arrow_forward" size={11} color={T.green} />}
                 </div>
-              );
-            })}
-          </div>
-        )}
-        {activeTab==="about" && (
-          <div style={{ background:T.cardBg, borderRadius:"20px", padding:"20px", border:`1px solid ${T.cardBorder}` }}>
-            {[["Name",person.name],["Handle",person.handle],["Role",person.role],["Location",person.location],["Rating",`${person.rating} ⭐`],["Reviews",`${person.reviews} reviews`],["Projects",`${person.projects} completed`],["Verified",person.verified?"Verified":"Not yet"]].map(([l,v]) => (
-              <div key={l} style={{ display:"flex", justifyContent:"space-between", padding:"10px 0", borderBottom:`1px solid ${T.divider}`, fontSize:"13px" }}>
-                <span style={{ color:T.subText }}>{l}</span><span style={{ color:T.white, fontWeight:"500" }}>{v}</span>
-              </div>
+              </button>
             ))}
-            <button onClick={() => showToast(`Booking request sent to ${person.name}!`)} style={{ width:"100%", marginTop:"16px", padding:"13px", background:"linear-gradient(135deg,#2a8a5a,#1e6b44)", border:"none", borderRadius:"12px", color:"#fff", fontSize:"14px", fontWeight:"700", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px" }}>
-              <MI name="handshake" size={18} color="#fff" /> Request Collaboration
-            </button>
           </div>
-        )}
+        </div>
+
+        {/* ── TAB SWITCHER ── */}
+        <div>
+          {/* Pill tab bar */}
+          <div style={{ display:"flex", background:T.dark?"rgba(255,255,255,0.06)":"rgba(200,210,235,0.35)", borderRadius:"16px", padding:"4px", marginBottom:"16px", gap:"0" }}>
+            {[{key:"links",label:"Social Links"},{key:"portfolio",label:"Portfolio"}].map(tab=>(
+              <button key={tab.key} onClick={()=>setMiniTab(tab.key)}
+                style={{ flex:1, padding:"11px 0", borderRadius:"12px", border:"none", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"background 0.2s,color 0.2s,box-shadow 0.2s",
+                  background: miniTab===tab.key ? "linear-gradient(135deg,#2a8a5a,#1e6b44)" : "transparent",
+                  color:       miniTab===tab.key ? "#ffffff" : T.subText,
+                  boxShadow:   miniTab===tab.key ? "0 4px 16px rgba(42,138,90,0.35)" : "none",
+                }}>
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* ── SOCIAL LINKS TAB ── */}
+          {miniTab==="links"&&(
+            <div>
+              {subLinks.length===0?(
+                <div style={{ textAlign:"center", padding:"32px 20px", background:T.cardBg, borderRadius:"18px", border:`1px dashed ${T.emptyBorder}` }}>
+                  <MI name="link" size={32} color={T.subText} style={{ marginBottom:"8px", display:"block" }} />
+                  <div style={{ fontSize:"14px", fontWeight:"600", color:T.subText, marginBottom:"4px" }}>No links yet</div>
+                  <div style={{ fontSize:"12px", color:T.mutedText }}>This person hasn't added any social links</div>
+                </div>
+              ):(
+                <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
+                  {subLinks.map(link => {
+                    const plat = getPlatform(link.platformId);
+                    return (
+                      <button key={link.uid} onClick={()=>setPreviewLink(link)}
+                        style={{ display:"flex", alignItems:"center", gap:"14px", padding:"16px 18px", borderRadius:"16px", background:T.linkCard, border:`1px solid ${T.linkBorder}`, cursor:"pointer", boxShadow:T.dark?"none":"0 1px 8px rgba(30,40,80,0.06)", textAlign:"left", width:"100%", transition:"border-color .15s,background .15s" }}
+                        onMouseEnter={e=>{e.currentTarget.style.borderColor=`${plat.color}60`;e.currentTarget.style.background=T.linkCardHov;}}
+                        onMouseLeave={e=>{e.currentTarget.style.borderColor=T.linkBorder;e.currentTarget.style.background=T.linkCard;}}>
+                        <div style={{ width:"48px", height:"48px", borderRadius:"14px", background:plat.gradient, display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", flexShrink:0, boxShadow:`0 4px 16px ${plat.color}40` }}>{plat.icon}</div>
+                        <div style={{ flex:1, minWidth:0 }}>
+                          <div style={{ fontSize:"15px", fontWeight:"700", color:T.white }}>{link.label}</div>
+                          <div style={{ fontSize:"12px", color:T.subText, marginTop:"1px", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{link.handle}</div>
+                        </div>
+                        <MI name="arrow_forward" size={18} color={plat.color} style={{ flexShrink:0 }} />
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* ── PORTFOLIO TAB ── */}
+          {miniTab==="portfolio"&&(
+            <div>
+              {person.portfolio&&person.portfolio.length>0?(
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"8px" }}>
+                  {person.portfolio.map((img,i)=>(
+                    <LazyImg key={i} src={img} alt={`Portfolio ${i+1}`}
+                      style={{ width:"100%", aspectRatio:"1", borderRadius:"12px", cursor:"pointer", overflow:"hidden" }}
+                    />
+                  ))}
+                </div>
+              ):(
+                <div style={{ textAlign:"center", padding:"32px 20px", background:T.cardBg, borderRadius:"18px", border:`1px dashed ${T.emptyBorder}` }}>
+                  <MI name="photo_library" size={32} color={T.subText} style={{ marginBottom:"8px", display:"block" }} />
+                  <div style={{ fontSize:"14px", fontWeight:"600", color:T.subText, marginBottom:"4px" }}>No portfolio yet</div>
+                  <div style={{ fontSize:"12px", color:T.mutedText }}>This person hasn't added any work</div>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Social preview modal */}
+      {previewLink && <SocialPreviewModal link={previewLink} T={T} onClose={()=>setPreviewLink(null)} />}
+
+      {/* Nested followers/following modal */}
+      {peopleModal && (
+        <PeopleModal
+          title={peopleModal.title}
+          ids={peopleModal.ids}
+          onClose={()=>setPeopleModal(null)}
+          showToast={showToast}
+          onViewProfile={p=>{ setPeopleModal(null); setNestedProfile(p); }}
+          T={T}
+        />
+      )}
+    </div>
+  );
+}
+
+/* ─────────────── SOCIAL PREVIEW MODAL ─────────────── */
+function SocialPreviewModal({ link, T, onClose }) {
+  const plat = getPlatform(link.platformId);
+  useEffect(() => {
+    const handler = e => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose]);
+  return (
+    <div style={{ position:"fixed", inset:0, zIndex:900, display:"flex", alignItems:"flex-end", justifyContent:"center", background:"rgba(0,0,0,0.6)", backdropFilter:"blur(8px)" }}
+      onClick={e=>{ if(e.target===e.currentTarget) onClose(); }}>
+      <div style={{ width:"100%", maxWidth:"480px", background:T.dark?"linear-gradient(160deg,#1e2538,#181d2b)":"#ffffff", borderRadius:"24px 24px 0 0", padding:"0 0 36px", boxShadow:"0 -12px 60px rgba(0,0,0,0.3)", border:`1px solid ${T.cardBorder}` }}>
+        {/* Handle */}
+        <div style={{ display:"flex", justifyContent:"center", paddingTop:"12px", paddingBottom:"4px" }}>
+          <div style={{ width:36, height:4, borderRadius:2, background:T.handleBar }} />
+        </div>
+        {/* Header */}
+        <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"10px 20px 0" }}>
+          <span style={{ fontSize:"15px", fontWeight:"800", color:T.white, fontFamily:"'Playfair Display',serif" }}>Connect via {plat.label}</span>
+          <button onClick={onClose} style={{ background:T.inputBg, border:`1px solid ${T.inputBorder}`, borderRadius:"50%", width:"30px", height:"30px", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer" }}>
+            <MI name="close" size={16} color={T.subText} />
+          </button>
+        </div>
+        {/* Platform preview card */}
+        <div style={{ margin:"18px 20px 0" }}>
+          <div style={{ borderRadius:"18px", overflow:"hidden", border:`1px solid ${T.cardBorder}`, boxShadow:T.dark?"none":"0 2px 16px rgba(30,40,80,0.08)" }}>
+            {/* Gradient banner */}
+            <div style={{ height:"90px", background:plat.gradient, display:"flex", alignItems:"center", justifyContent:"center", position:"relative" }}>
+              <div style={{ width:"56px", height:"56px", borderRadius:"16px", background:"rgba(255,255,255,0.18)", backdropFilter:"blur(6px)", display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", boxShadow:`0 6px 24px rgba(0,0,0,0.2)` }}>
+                <span style={{ transform:"scale(1.3)", display:"flex" }}>{plat.icon}</span>
+              </div>
+            </div>
+            {/* Info */}
+            <div style={{ background:T.cardBg, padding:"16px 18px 18px" }}>
+              <div style={{ fontSize:"17px", fontWeight:"800", color:T.white, marginBottom:"3px" }}>{link.label}</div>
+              <div style={{ fontSize:"13px", color:T.subText, marginBottom:"10px", display:"flex", alignItems:"center", gap:"5px" }}>
+                <MI name="alternate_email" size={13} color={T.mutedText} />
+                {link.handle}
+              </div>
+              <div style={{ display:"flex", alignItems:"center", gap:"6px", padding:"8px 12px", borderRadius:"10px", background:T.tagBg, border:`1px solid ${T.tagBorder}` }}>
+                <MI name="open_in_new" size={13} color={T.green} />
+                <span style={{ fontSize:"12px", color:T.green, fontWeight:"600", overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{link.url}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* CTA */}
+        <div style={{ padding:"18px 20px 0", display:"flex", flexDirection:"column", gap:"10px" }}>
+          <a href={link.url} target="_blank" rel="noreferrer" style={{ textDecoration:"none" }}>
+            <button style={{ width:"100%", padding:"14px", background:`linear-gradient(135deg,${plat.color},${plat.color}cc)`, border:"none", borderRadius:"14px", color:"#fff", fontSize:"15px", fontWeight:"700", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"8px", boxShadow:`0 6px 20px ${plat.color}45` }}>
+              <span style={{ display:"flex", transform:"scale(0.9)" }}>{plat.icon}</span>
+              Open {plat.label}
+              <MI name="open_in_new" size={16} color="#fff" />
+            </button>
+          </a>
+          <button onClick={onClose} style={{ width:"100%", padding:"12px", background:T.inputBg, border:`1px solid ${T.inputBorder}`, borderRadius:"14px", color:T.subText, fontSize:"14px", fontWeight:"600", cursor:"pointer" }}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -468,14 +681,26 @@ export default function ProfilePage() {
   const [showAddLink, setShowAddLink] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [deletingUid, setDeletingUid] = useState(null);
+  const [previewLink, setPreviewLink] = useState(null);
+  const [portfolio, setPortfolio] = useState([
+    "https://picsum.photos/seed/th1/400/400",
+    "https://picsum.photos/seed/th2/400/400",
+    "https://picsum.photos/seed/th3/400/400",
+    "https://picsum.photos/seed/th4/400/400",
+  ]);
+  const [portfolioEditMode, setPortfolioEditMode] = useState(false);
+  const [lightboxImg, setLightboxImg] = useState(null);
+  const [profileTab, setProfileTab] = useState("links"); // "links" | "portfolio"
   const [kebabOpen, setKebabOpen] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
 
   const [profileData, setProfileData] = useState({
     name:"Thandiwe Nkosi", handle:"@thandiwe", role:"Freelance Photographer",
-    showRole: true,  // ← toggle whether role appears on profile
+    showRole: true,         // toggle whether role appears on profile
+    receiveEmails: true,    // opt-in: allow verified users to email this profile
     location:"Johannesburg, South Africa", bio:"📷 Capturing the beauty of South Africa. Available for shoots!",
     avatar:"https://picsum.photos/seed/thandiwe/200/200", email:"thandiwe@example.com", industry:"Photography",
+    verified: true,         // main profile owner verified status
   });
   const [editDraft, setEditDraft] = useState(null);
 
@@ -596,7 +821,11 @@ export default function ProfilePage() {
             <div style={{ fontSize:"13px", color:T.subText, lineHeight:1.6, marginBottom:"18px" }}>{profileData.bio}</div>
 
             <div style={{ display:"flex", borderTop:`1px solid ${T.divider}`, paddingTop:"14px" }}>
-              {[{n:fmtN(12500),l:"Followers",action:()=>setModal("followers")},{n:"320",l:"Following",action:()=>setModal("following")},{n:"48",l:"Projects",action:null}].map((s,i)=>(
+              {[
+                {n:fmtN(12500), l:"Followers", action:()=>setModal("followers")},
+                {n:"320",       l:"Following", action:()=>setModal("following")},
+                {n:portfolio.length, l:"Portfolio", action:null},
+              ].map((s,i)=>(
                 <button key={s.l} onClick={s.action||undefined} disabled={!s.action}
                   style={{ flex:1, background:"none", border:"none", cursor:s.action?"pointer":"default", padding:"8px 0", borderRight:i<2?`1px solid ${T.divider}`:"none", borderRadius:"8px" }}
                   onMouseEnter={e=>{if(s.action)e.currentTarget.style.background=T.hoverBg;}}
@@ -610,82 +839,183 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          {/* ── SOCIAL LINKS ── */}
+          {/* ── TAB SWITCHER + CONTENT ── */}
           <div style={{ marginBottom:"14px" }}>
-            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"12px", padding:"0 2px" }}>
-              <div>
-                <div style={{ fontSize:"15px", fontWeight:"800", color:T.white }}>Connect with me</div>
-                <div style={{ fontSize:"11px", color:T.mutedText, marginTop:"1px" }}>{links.length} link{links.length!==1?"s":""}</div>
-              </div>
-              <div style={{ display:"flex", gap:"7px" }}>
-                {links.length>0&&(
-                  <button onClick={()=>{setEditMode(m=>!m);setDeletingUid(null);}}
-                    style={{ padding:"6px 14px", borderRadius:"20px", background:editMode?"rgba(220,38,38,0.08)":T.inputBg, border:editMode?"1px solid rgba(220,38,38,0.3)":`1px solid ${T.inputBorder}`, color:editMode?"#dc2626":T.subText, fontSize:"12px", fontWeight:"600", cursor:"pointer", display:"flex", alignItems:"center", gap:"5px" }}>
-                    <MI name={editMode?"check":"edit"} size={14} color={editMode?"#dc2626":T.subText} />
-                    {editMode?"Done":"Edit"}
-                  </button>
-                )}
-                <button onClick={()=>setShowAddLink(true)} style={{ padding:"6px 14px", borderRadius:"20px", background:"linear-gradient(135deg,#2a8a5a,#1e6b44)", border:"none", color:"#fff", fontSize:"12px", fontWeight:"700", cursor:"pointer", boxShadow:"0 3px 12px rgba(42,138,90,0.28)", display:"flex", alignItems:"center", gap:"5px" }}>
-                  <MI name="add" size={16} color="#fff" /> Add Link
+
+            {/* Pill tab bar — matches screenshot style */}
+            <div style={{ display:"flex", background:T.dark?"rgba(255,255,255,0.06)":"rgba(200,210,235,0.35)", borderRadius:"16px", padding:"4px", marginBottom:"16px", gap:"0" }}>
+              {[{key:"links",label:"Social Links"},{key:"portfolio",label:"Portfolio"}].map(tab=>(
+                <button key={tab.key} onClick={()=>setProfileTab(tab.key)}
+                  style={{ flex:1, padding:"11px 0", borderRadius:"12px", border:"none", fontSize:"15px", fontWeight:"700", cursor:"pointer", transition:"background 0.2s,color 0.2s,box-shadow 0.2s",
+                    background: profileTab===tab.key ? "linear-gradient(135deg,#2a8a5a,#1e6b44)" : "transparent",
+                    color:       profileTab===tab.key ? "#ffffff" : T.subText,
+                    boxShadow:   profileTab===tab.key ? "0 4px 16px rgba(42,138,90,0.35)" : "none",
+                  }}>
+                  {tab.label}
                 </button>
-              </div>
+              ))}
             </div>
 
-            {links.length===0?(
-              <div style={{ textAlign:"center", padding:"32px 20px", background:T.cardBg, borderRadius:"18px", border:`1px dashed ${T.emptyBorder}` }}>
-                <MI name="link" size={32} color={T.subText} style={{ marginBottom:"8px", display:"block" }} />
-                <div style={{ fontSize:"14px", fontWeight:"600", color:T.subText, marginBottom:"4px" }}>No links yet</div>
-                <div style={{ fontSize:"12px", color:T.mutedText }}>Add your social media links above</div>
-              </div>
-            ):(
-              <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
-                {links.map(link=>{
-                  const plat=getPlatform(link.platformId);
-                  const isDeleting=deletingUid===link.uid;
-                  return (
-                    <div key={link.uid} style={{ position:"relative" }}>
-                      {editMode&&isDeleting&&(
-                        <div style={{ position:"absolute", inset:0, zIndex:5, background:"rgba(20,10,10,0.9)", borderRadius:"16px", display:"flex", alignItems:"center", justifyContent:"center", gap:"10px", backdropFilter:"blur(4px)" }}>
-                          <span style={{ fontSize:"13px", color:"#fca5a5" }}>Remove this link?</span>
-                          <button onClick={()=>deleteLink(link.uid)} style={{ padding:"6px 14px", background:"#dc2626", border:"none", borderRadius:"8px", color:"#fff", fontSize:"12px", fontWeight:"700", cursor:"pointer" }}>Remove</button>
-                          <button onClick={()=>setDeletingUid(null)} style={{ padding:"6px 12px", background:"rgba(255,255,255,0.15)", border:"none", borderRadius:"8px", color:"#e8eaf0", fontSize:"12px", cursor:"pointer" }}>Cancel</button>
-                        </div>
-                      )}
-                      <a href={editMode?undefined:link.url} target={editMode?undefined:"_blank"} rel="noreferrer" onClick={editMode?e=>e.preventDefault():undefined} style={{ textDecoration:"none", display:"block" }}>
-                        <div style={{ display:"flex", alignItems:"center", gap:"15px", padding:"14px 16px", borderRadius:"16px", background:T.linkCard, border:`1px solid ${editMode?"rgba(220,38,38,0.25)":T.linkBorder}`, cursor:editMode?"default":"pointer", transition:"border-color .15s,background .15s", boxShadow:T.dark?"none":"0 1px 8px rgba(30,40,80,0.06)" }}
-                          onMouseEnter={e=>{if(!editMode){e.currentTarget.style.borderColor=`${plat.color}60`;e.currentTarget.style.background=T.linkCardHov;}}}
-                          onMouseLeave={e=>{e.currentTarget.style.borderColor=editMode?"rgba(220,38,38,0.25)":T.linkBorder;e.currentTarget.style.background=T.linkCard;}}>
-                          {editMode&&(<div style={{ display:"flex", flexDirection:"column", gap:"3px", flexShrink:0, opacity:0.4 }}>{[0,1,2].map(i=><div key={i} style={{ width:"14px", height:"2px", background:T.subText, borderRadius:"1px" }} />)}</div>)}
-                          <div style={{ width:"50px", height:"50px", borderRadius:"14px", background:plat.gradient, display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", flexShrink:0, boxShadow:`0 4px 18px ${plat.color}40` }}>{plat.icon}</div>
-                          <div style={{ flex:1, minWidth:0 }}>
-                            <div style={{ fontSize:"15px", fontWeight:"700", color:T.white, marginBottom:"2px" }}>{link.label}</div>
-                            <div style={{ fontSize:"13px", color:T.subText, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{link.handle}</div>
-                          </div>
-                          {editMode?(
-                            <button onClick={()=>setDeletingUid(link.uid)} style={{ width:"28px", height:"28px", borderRadius:"50%", background:"rgba(220,38,38,0.12)", border:"1px solid rgba(220,38,38,0.3)", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer", flexShrink:0 }}>
-                              <MI name="close" size={13} color="#f87171" />
-                            </button>
-                          ):(
-                            <MI name="arrow_forward" size={18} color={plat.color} style={{ flexShrink:0, opacity:0.85 }} />
+            {/* ── SOCIAL LINKS TAB ── */}
+            {profileTab==="links"&&(
+              <div>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"12px", padding:"0 2px" }}>
+                  <div style={{ fontSize:"11px", color:T.mutedText }}>{links.length} link{links.length!==1?"s":""}</div>
+                  <div style={{ display:"flex", gap:"7px" }}>
+                    {links.length>0&&(
+                      <button onClick={()=>{setEditMode(m=>!m);setDeletingUid(null);}}
+                        style={{ padding:"6px 14px", borderRadius:"20px", background:editMode?"rgba(220,38,38,0.08)":T.inputBg, border:editMode?"1px solid rgba(220,38,38,0.3)":`1px solid ${T.inputBorder}`, color:editMode?"#dc2626":T.subText, fontSize:"12px", fontWeight:"600", cursor:"pointer", display:"flex", alignItems:"center", gap:"5px" }}>
+                        <MI name={editMode?"check":"edit"} size={14} color={editMode?"#dc2626":T.subText} />
+                        {editMode?"Done":"Edit"}
+                      </button>
+                    )}
+                    <button onClick={()=>setShowAddLink(true)} style={{ padding:"6px 14px", borderRadius:"20px", background:"linear-gradient(135deg,#2a8a5a,#1e6b44)", border:"none", color:"#fff", fontSize:"12px", fontWeight:"700", cursor:"pointer", boxShadow:"0 3px 12px rgba(42,138,90,0.28)", display:"flex", alignItems:"center", gap:"5px" }}>
+                      <MI name="add" size={16} color="#fff" /> Add Link
+                    </button>
+                  </div>
+                </div>
+
+                {links.length===0?(
+                  <div style={{ textAlign:"center", padding:"32px 20px", background:T.cardBg, borderRadius:"18px", border:`1px dashed ${T.emptyBorder}` }}>
+                    <MI name="link" size={32} color={T.subText} style={{ marginBottom:"8px", display:"block" }} />
+                    <div style={{ fontSize:"14px", fontWeight:"600", color:T.subText, marginBottom:"4px" }}>No links yet</div>
+                    <div style={{ fontSize:"12px", color:T.mutedText }}>Add your social media links above</div>
+                  </div>
+                ):(
+                  <div style={{ display:"flex", flexDirection:"column", gap:"10px" }}>
+                    {links.map(link=>{
+                      const plat=getPlatform(link.platformId);
+                      const isDeleting=deletingUid===link.uid;
+                      return (
+                        <div key={link.uid} style={{ position:"relative" }}>
+                          {editMode&&isDeleting&&(
+                            <div style={{ position:"absolute", inset:0, zIndex:5, background:"rgba(20,10,10,0.9)", borderRadius:"16px", display:"flex", alignItems:"center", justifyContent:"center", gap:"10px", backdropFilter:"blur(4px)" }}>
+                              <span style={{ fontSize:"13px", color:"#fca5a5" }}>Remove this link?</span>
+                              <button onClick={()=>deleteLink(link.uid)} style={{ padding:"6px 14px", background:"#dc2626", border:"none", borderRadius:"8px", color:"#fff", fontSize:"12px", fontWeight:"700", cursor:"pointer" }}>Remove</button>
+                              <button onClick={()=>setDeletingUid(null)} style={{ padding:"6px 12px", background:"rgba(255,255,255,0.15)", border:"none", borderRadius:"8px", color:"#e8eaf0", fontSize:"12px", cursor:"pointer" }}>Cancel</button>
+                            </div>
                           )}
+                          <a href={editMode?undefined:"#"} onClick={e=>{ e.preventDefault(); if(!editMode) setPreviewLink(link); }} style={{ textDecoration:"none", display:"block" }}>
+                            <div style={{ display:"flex", alignItems:"center", gap:"15px", padding:"14px 16px", borderRadius:"16px", background:T.linkCard, border:`1px solid ${editMode?"rgba(220,38,38,0.25)":T.linkBorder}`, cursor:editMode?"default":"pointer", transition:"border-color .15s,background .15s", boxShadow:T.dark?"none":"0 1px 8px rgba(30,40,80,0.06)" }}
+                              onMouseEnter={e=>{if(!editMode){e.currentTarget.style.borderColor=`${plat.color}60`;e.currentTarget.style.background=T.linkCardHov;}}}
+                              onMouseLeave={e=>{e.currentTarget.style.borderColor=editMode?"rgba(220,38,38,0.25)":T.linkBorder;e.currentTarget.style.background=T.linkCard;}}>
+                              {editMode&&(<div style={{ display:"flex", flexDirection:"column", gap:"3px", flexShrink:0, opacity:0.4 }}>{[0,1,2].map(i=><div key={i} style={{ width:"14px", height:"2px", background:T.subText, borderRadius:"1px" }} />)}</div>)}
+                              <div style={{ width:"50px", height:"50px", borderRadius:"14px", background:plat.gradient, display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", flexShrink:0, boxShadow:`0 4px 18px ${plat.color}40` }}>{plat.icon}</div>
+                              <div style={{ flex:1, minWidth:0 }}>
+                                <div style={{ fontSize:"15px", fontWeight:"700", color:T.white, marginBottom:"2px" }}>{link.label}</div>
+                                <div style={{ fontSize:"13px", color:T.subText, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap" }}>{link.handle}</div>
+                              </div>
+                              {editMode?(
+                                <button onClick={()=>setDeletingUid(link.uid)} style={{ width:"28px", height:"28px", borderRadius:"50%", background:"rgba(220,38,38,0.12)", border:"1px solid rgba(220,38,38,0.3)", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer", flexShrink:0 }}>
+                                  <MI name="close" size={13} color="#f87171" />
+                                </button>
+                              ):(
+                                <MI name="arrow_forward" size={18} color={plat.color} style={{ flexShrink:0, opacity:0.85 }} />
+                              )}
+                            </div>
+                          </a>
                         </div>
-                      </a>
-                    </div>
-                  );
-                })}
+                      );
+                    })}
+                  </div>
+                )}
+                {!editMode&&links.length>0&&(
+                  <button onClick={()=>setShowAddLink(true)} style={{ width:"100%", marginTop:"10px", padding:"12px", background:"transparent", border:`1px dashed ${T.emptyBorder}`, borderRadius:"14px", color:T.mutedText, fontSize:"13px", fontWeight:"500", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"7px" }}
+                    onMouseEnter={e=>{e.currentTarget.style.background=T.tagBg;e.currentTarget.style.borderColor="rgba(42,138,90,0.3)";e.currentTarget.style.color=T.green;}}
+                    onMouseLeave={e=>{e.currentTarget.style.background="transparent";e.currentTarget.style.borderColor=T.emptyBorder;e.currentTarget.style.color=T.mutedText;}}>
+                    <MI name="add" size={15} color="currentColor" /> Add another link
+                  </button>
+                )}
               </div>
             )}
 
-            {!editMode&&links.length>0&&(
-              <button onClick={()=>setShowAddLink(true)} style={{ width:"100%", marginTop:"10px", padding:"12px", background:"transparent", border:`1px dashed ${T.emptyBorder}`, borderRadius:"14px", color:T.mutedText, fontSize:"13px", fontWeight:"500", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", gap:"7px" }}
-                onMouseEnter={e=>{e.currentTarget.style.background=T.tagBg;e.currentTarget.style.borderColor="rgba(42,138,90,0.3)";e.currentTarget.style.color=T.green;}}
-                onMouseLeave={e=>{e.currentTarget.style.background="transparent";e.currentTarget.style.borderColor=T.emptyBorder;e.currentTarget.style.color=T.mutedText;}}>
-                <MI name="add" size={15} color="currentColor" /> Add another link
-              </button>
+            {/* ── PORTFOLIO TAB ── */}
+            {profileTab==="portfolio"&&(
+              <div>
+                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"12px", padding:"0 2px" }}>
+                  <div style={{ fontSize:"11px", color:T.mutedText }}>{portfolio.length}/6 images</div>
+                  <div style={{ display:"flex", gap:"7px" }}>
+                    {portfolio.length>0&&(
+                      <button onClick={()=>setPortfolioEditMode(m=>!m)}
+                        style={{ padding:"6px 14px", borderRadius:"20px", background:portfolioEditMode?"rgba(220,38,38,0.08)":T.inputBg, border:portfolioEditMode?"1px solid rgba(220,38,38,0.3)":`1px solid ${T.inputBorder}`, color:portfolioEditMode?"#dc2626":T.subText, fontSize:"12px", fontWeight:"600", cursor:"pointer", display:"flex", alignItems:"center", gap:"5px" }}>
+                        <MI name={portfolioEditMode?"check":"edit"} size={14} color={portfolioEditMode?"#dc2626":T.subText} />
+                        {portfolioEditMode?"Done":"Edit"}
+                      </button>
+                    )}
+                    {portfolio.length<6&&(
+                      <label style={{ padding:"6px 14px", borderRadius:"20px", background:"linear-gradient(135deg,#2a8a5a,#1e6b44)", border:"none", color:"#fff", fontSize:"12px", fontWeight:"700", cursor:"pointer", boxShadow:"0 3px 12px rgba(42,138,90,0.28)", display:"flex", alignItems:"center", gap:"5px" }}>
+                        <MI name="add_photo_alternate" size={16} color="#fff" /> Add
+                        <input type="file" accept="image/*" multiple style={{ display:"none" }} onChange={e=>{
+                          const files=Array.from(e.target.files||[]);
+                          const rem=6-portfolio.length;
+                          files.slice(0,rem).forEach(f=>{ const r=new FileReader(); r.onload=ev=>setPortfolio(p=>[...p,ev.target.result].slice(0,6)); r.readAsDataURL(f); });
+                          e.target.value="";
+                        }} />
+                      </label>
+                    )}
+                  </div>
+                </div>
+                {portfolio.length===0?(
+                  <label style={{ display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"8px", padding:"32px 20px", background:T.cardBg, borderRadius:"18px", border:`1px dashed ${T.emptyBorder}`, cursor:"pointer" }}>
+                    <MI name="add_photo_alternate" size={36} color={T.subText} />
+                    <div style={{ fontSize:"14px", fontWeight:"600", color:T.subText }}>Add portfolio images</div>
+                    <div style={{ fontSize:"12px", color:T.mutedText }}>Up to 6 images · JPG, PNG, GIF</div>
+                    <input type="file" accept="image/*" multiple style={{ display:"none" }} onChange={e=>{
+                      const files=Array.from(e.target.files||[]);
+                      files.slice(0,6).forEach(f=>{ const r=new FileReader(); r.onload=ev=>setPortfolio(p=>[...p,ev.target.result].slice(0,6)); r.readAsDataURL(f); });
+                      e.target.value="";
+                    }} />
+                  </label>
+                ):(
+                  <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:"6px" }}>
+                    {portfolio.map((img,idx)=>(
+                      <div key={idx} style={{ position:"relative", aspectRatio:"1", borderRadius:"12px", overflow:"hidden", cursor:"pointer" }}
+                        onClick={()=>{ if(!portfolioEditMode) setLightboxImg(img); }}>
+                        <img src={img} alt={`Portfolio ${idx+1}`} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }} />
+                        {portfolioEditMode?(
+                          <div style={{ position:"absolute", inset:0, background:"rgba(0,0,0,0.45)", display:"flex", alignItems:"center", justifyContent:"center" }}>
+                            <button onClick={e=>{ e.stopPropagation(); setPortfolio(p=>p.filter((_,i)=>i!==idx)); }}
+                              style={{ width:"32px", height:"32px", borderRadius:"50%", background:"rgba(220,38,38,0.9)", border:"2px solid #fff", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer" }}>
+                              <MI name="close" size={16} color="#fff" />
+                            </button>
+                          </div>
+                        ):(
+                          <div style={{ position:"absolute", inset:0, background:"rgba(0,0,0,0)", transition:"background 0.15s" }}
+                            onMouseEnter={e=>e.currentTarget.style.background="rgba(0,0,0,0.18)"}
+                            onMouseLeave={e=>e.currentTarget.style.background="rgba(0,0,0,0)"} />
+                        )}
+                      </div>
+                    ))}
+                    {portfolioEditMode&&portfolio.length<6&&(
+                      <label style={{ aspectRatio:"1", borderRadius:"12px", border:`2px dashed ${T.emptyBorder}`, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"4px", cursor:"pointer", background:T.sectionBg }}>
+                        <MI name="add" size={24} color={T.mutedText} />
+                        <span style={{ fontSize:"10px", color:T.mutedText, fontWeight:"600" }}>Add</span>
+                        <input type="file" accept="image/*" multiple style={{ display:"none" }} onChange={e=>{
+                          const files=Array.from(e.target.files||[]);
+                          const rem=6-portfolio.length;
+                          files.slice(0,rem).forEach(f=>{ const r=new FileReader(); r.onload=ev=>setPortfolio(p=>[...p,ev.target.result].slice(0,6)); r.readAsDataURL(f); });
+                          e.target.value="";
+                        }} />
+                      </label>
+                    )}
+                  </div>
+                )}
+              </div>
             )}
           </div>
         </div>
       </div>
+
+      {/* ── LIGHTBOX ── */}
+      {lightboxImg&&(
+        <div style={{ position:"fixed", inset:0, zIndex:900, background:"rgba(0,0,0,0.92)", display:"flex", alignItems:"center", justifyContent:"center", backdropFilter:"blur(8px)" }}
+          onClick={()=>setLightboxImg(null)}>
+          <button onClick={()=>setLightboxImg(null)} style={{ position:"absolute", top:"16px", right:"16px", background:"rgba(255,255,255,0.12)", border:"none", borderRadius:"50%", width:"38px", height:"38px", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer" }}>
+            <MI name="close" size={20} color="#fff" />
+          </button>
+          <img src={lightboxImg} alt="Portfolio" style={{ maxWidth:"92vw", maxHeight:"88vh", borderRadius:"16px", objectFit:"contain", boxShadow:"0 24px 80px rgba(0,0,0,0.6)" }} onClick={e=>e.stopPropagation()} />
+        </div>
+      )}
 
       {/* ── FOOTER ── */}
       <footer style={{ background:T.footerBg, borderTop:`1px solid ${T.footerBorder}`, padding:"28px 24px 24px", transition:"background 0.25s" }}>
@@ -725,12 +1055,15 @@ export default function ProfilePage() {
       {/* ══ ADD LINK ══ */}
       {showAddLink&&<AddLinkModal onClose={()=>setShowAddLink(false)} onAdd={addLink} T={T} />}
 
+      {/* ══ SOCIAL PREVIEW ══ */}
+      {previewLink&&<SocialPreviewModal link={previewLink} T={T} onClose={()=>setPreviewLink(null)} />}
+
       {/* ══ FOLLOWERS / FOLLOWING ══ */}
       {modal==="followers"&&<PeopleModal title={`Followers · ${fmtN(12500)}`} ids={FOLLOWERS_IDS} onClose={()=>setModal(null)} showToast={showToast} onViewProfile={p=>{setModal(null);setViewingProfile(p);}} T={T} />}
       {modal==="following"&&<PeopleModal title="Following · 320" ids={FOLLOWING_IDS} onClose={()=>setModal(null)} showToast={showToast} onViewProfile={p=>{setModal(null);setViewingProfile(p);}} T={T} />}
 
       {/* ══ SUB-PROFILE ══ */}
-      {viewingProfile&&<MiniProfile person={viewingProfile} onBack={()=>setViewingProfile(null)} showToast={showToast} T={T} />}
+      {viewingProfile&&<MiniProfile person={viewingProfile} onBack={()=>setViewingProfile(null)} showToast={showToast} T={T} onOpenMenu={()=>setModal("menu")} myProfile={profileData} />}
 
       {/* ══ HAMBURGER DRAWER ══ */}
       {modal==="menu"&&(
@@ -892,6 +1225,26 @@ export default function ProfilePage() {
                 </div>
               </div>
 
+              {/* Receive Emails toggle — only meaningful if verified */}
+              <div style={{ display:"flex", alignItems:"center", justifyContent:"space-between", padding:"10px 14px", borderRadius:"12px", background:T.sectionBg, border:`1px solid ${editDraft.verified ? T.cardBorder : T.emptyBorder}`, opacity:editDraft.verified ? 1 : 0.55 }}>
+                <div style={{ flex:1, minWidth:0, marginRight:"12px" }}>
+                  <div style={{ fontSize:"13px", fontWeight:"600", color:T.text, display:"flex", alignItems:"center", gap:"6px" }}>
+                    <MI name="mail" size={15} color={T.green} />
+                    Receive emails from followers
+                    {!editDraft.verified && <span style={{ fontSize:"10px", background:"rgba(248,113,113,0.12)", color:"#f87171", padding:"1px 7px", borderRadius:"20px", border:"1px solid rgba(248,113,113,0.3)", fontWeight:"700" }}>Verified only</span>}
+                  </div>
+                  <div style={{ fontSize:"11px", color:T.subText, marginTop:"2px" }}>
+                    {editDraft.verified ? "Verified followers can email you at your registered address" : "Get verified to enable this feature"}
+                  </div>
+                </div>
+                <button
+                  disabled={!editDraft.verified}
+                  onClick={()=>{ if(editDraft.verified) setEditDraft(d=>({...d,receiveEmails:!d.receiveEmails})); }}
+                  style={{ width:"44px", height:"24px", borderRadius:"12px", border:"none", cursor:editDraft.verified?"pointer":"not-allowed", position:"relative", background:editDraft.receiveEmails&&editDraft.verified?"#2a8a5a":"#d0d8f0", transition:"background 0.2s", flexShrink:0 }}>
+                  <div style={{ position:"absolute", top:"3px", left:editDraft.receiveEmails&&editDraft.verified?"23px":"3px", width:"18px", height:"18px", borderRadius:"50%", background:"#ffffff", boxShadow:"0 1px 4px rgba(0,0,0,0.2)", transition:"left 0.2s" }} />
+                </button>
+              </div>
+
               {/* Industry Category */}
               <div>
                 <div style={{ fontSize:"11px", color:T.subText, marginBottom:"6px", fontWeight:"600", display:"flex", alignItems:"center", gap:"5px" }}>
@@ -935,4 +1288,4 @@ export default function ProfilePage() {
       )}
     </div>
   );
-			  }
+}

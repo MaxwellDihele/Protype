@@ -15,6 +15,39 @@ if (typeof document !== "undefined" && !document.getElementById("material-icons"
   mi.href = "https://fonts.googleapis.com/icon?family=Material+Icons+Round";
   document.head.appendChild(mi);
 }
+if (typeof document !== "undefined" && !document.getElementById("umlinked-responsive")) {
+  const s = document.createElement("style");
+  s.id = "umlinked-responsive";
+  s.textContent = `
+    *,*::before,*::after{box-sizing:border-box;}
+    html,body{max-width:100vw;overflow-x:hidden;}
+    /* Clamp profile name so it never overflows on tiny screens */
+    .uml-profile-name{font-size:clamp(15px,4.5vw,20px)!important;word-break:break-word;}
+    /* Stat bar numbers */
+    .uml-stat-num{font-size:clamp(14px,4vw,17px)!important;}
+    /* Nav logo text */
+    .uml-logo-text{font-size:clamp(15px,4.5vw,19px)!important;}
+    /* Drawer width: never wider than 90vw */
+    .uml-drawer{width:min(280px,90vw)!important;}
+    /* Kebab dropdown: never wider than viewport minus a margin */
+    .uml-kebab-dropdown{min-width:min(210px,calc(100vw - 32px))!important;max-width:calc(100vw - 32px)!important;}
+    /* Body container: fluid below 420px, comfortable above */
+    .uml-body-inner{width:100%!important;max-width:480px!important;}
+    /* MiniProfile inner */
+    .uml-mini-inner{max-width:480px!important;}
+    /* Edit profile sheet: full-width on mobile */
+    .uml-edit-sheet{width:100%!important;max-width:520px!important;}
+    /* Footer grid: single column on very small screens */
+    @media(max-width:340px){.uml-footer-grid{grid-template-columns:1fr!important;}}
+    /* Ensure inputs never overflow their containers */
+    input,textarea,select{max-width:100%;}
+    /* Handle bar for bottom sheets */
+    .uml-handle{touch-action:none;}
+    /* Toast: cap width so it doesn't overflow on 320px */
+    .uml-toast{max-width:calc(100vw - 32px)!important;white-space:normal!important;text-align:center!important;}
+  `;
+  document.head.appendChild(s);
+}
 
 /* ─────────────── MI COMPONENT ─────────────── */
 const MI = ({ name, size = 20, color = "currentColor", style = {} }) => (
@@ -183,7 +216,7 @@ function MiniProfile({ person, onBack, showToast, T }) {
         </div>
         <div style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#2a8a5a" }} />
       </div>
-      <div style={{ padding:"20px 16px 50px", maxWidth:"480px", margin:"0 auto" }}>
+      <div className="uml-mini-inner" style={{ padding:"20px 16px 50px", maxWidth:"480px", margin:"0 auto" }}>
         <div style={{ background:T.cardBg, borderRadius:"22px", padding:"22px", marginBottom:"14px", border:`1px solid ${T.cardBorder}`, boxShadow:T.cardShadow }}>
           <div style={{ display:"flex", alignItems:"flex-start", gap:"16px", marginBottom:"14px" }}>
             <div style={{ position:"relative", flexShrink:0 }}>
@@ -192,7 +225,7 @@ function MiniProfile({ person, onBack, showToast, T }) {
             </div>
             <div style={{ flex:1 }}>
               <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"2px" }}>
-                <span style={{ fontSize:"17px", fontWeight:"800", color:T.white, fontFamily:"'Playfair Display',Georgia,serif" }}>{person.name}</span>
+                <span className="uml-profile-name" style={{ fontSize:"17px", fontWeight:"800", color:T.white, fontFamily:"'Playfair Display',Georgia,serif" }}>{person.name}</span>
                 {person.verified && <MI name="verified" size={16} color="#2a8a5a" />}
               </div>
               <div style={{ fontSize:"12px", color:T.subText, marginBottom:"3px" }}>{person.handle}</div>
@@ -479,7 +512,7 @@ export default function ProfilePage() {
     <div style={{ minHeight:"100vh", background:T.bodyBg, fontFamily:"'DM Sans','Segoe UI',sans-serif", color:T.text, transition:"background 0.25s,color 0.25s" }}>
 
       {/* ── NAV ── */}
-      <nav style={{ position:"sticky", top:0, zIndex:200, display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0 16px", height:"56px", background:T.navBg, backdropFilter:"blur(16px)", borderBottom:`1px solid ${T.navBorder}`, transition:"background 0.25s" }}>
+      <nav style={{ position:"sticky", top:0, zIndex:200, display:"flex", alignItems:"center", justifyContent:"space-between", padding:"0 max(12px, env(safe-area-inset-right, 12px))", height:"56px", background:T.navBg, backdropFilter:"blur(16px)", borderBottom:`1px solid ${T.navBorder}`, transition:"background 0.25s" }}>
         {/* Home button */}
         <div style={{ display:"flex", alignItems:"center", gap:"8px" }}>
           <button onClick={() => showToast("Going home…")} title="Home" style={{ background:T.inputBg, border:`1px solid ${T.inputBorder}`, borderRadius:"10px", width:"36px", height:"36px", display:"flex", alignItems:"center", justifyContent:"center", cursor:"pointer" }}>
@@ -489,7 +522,7 @@ export default function ProfilePage() {
             <div style={{ width:"28px", height:"28px", borderRadius:"8px", background:"linear-gradient(135deg,#2a8a5a,#1e6b44)", display:"flex", alignItems:"center", justifyContent:"center" }}>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
             </div>
-            <span style={{ fontSize:"19px", fontWeight:"800", letterSpacing:"-0.5px", background:"linear-gradient(135deg,#2a8a5a,#1a6640)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>UmLinked</span>
+            <span className="uml-logo-text" style={{ fontSize:"19px", fontWeight:"800", letterSpacing:"-0.5px", background:"linear-gradient(135deg,#2a8a5a,#1a6640)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent" }}>UmLinked</span>
           </div>
         </div>
         {/* Hamburger */}
@@ -499,8 +532,8 @@ export default function ProfilePage() {
       </nav>
 
       {/* ── BODY ── */}
-      <div style={{ display:"flex", justifyContent:"center", padding:"20px 16px 40px" }}>
-        <div style={{ width:"100%", maxWidth:"420px" }}>
+      <div style={{ display:"flex", justifyContent:"center", padding:"20px max(12px,3vw) 40px" }}>
+        <div className="uml-body-inner" style={{ width:"100%", maxWidth:"420px" }}>
 
           {/* ── PROFILE CARD ── */}
           <div style={{ background:T.cardBg, borderRadius:"24px", padding:"22px", marginBottom:"14px", border:`1px solid ${T.cardBorder}`, boxShadow:T.cardShadow, position:"relative" }}>
@@ -513,7 +546,7 @@ export default function ProfilePage() {
               {kebabOpen && (
                 <>
                   <div style={{ position:"fixed", inset:0, zIndex:9 }} onClick={()=>setKebabOpen(false)} />
-                  <div style={{ position:"absolute", top:"40px", right:0, zIndex:10, background:T.kebabBg, border:`1px solid ${T.cardBorder}`, borderRadius:"16px", minWidth:"210px", boxShadow:T.dark?"0 16px 48px rgba(0,0,0,0.6)":"0 8px 32px rgba(30,40,80,0.14)", overflow:"hidden" }}>
+                  <div className="uml-kebab-dropdown" style={{ position:"absolute", top:"40px", right:0, zIndex:10, background:T.kebabBg, border:`1px solid ${T.cardBorder}`, borderRadius:"16px", minWidth:"210px", boxShadow:T.dark?"0 16px 48px rgba(0,0,0,0.6)":"0 8px 32px rgba(30,40,80,0.14)", overflow:"hidden" }}>
                     <div style={{ padding:"11px 16px 9px", borderBottom:`1px solid ${T.divider}` }}>
                       <div style={{ fontSize:"11px", color:T.mutedText, fontWeight:"600", textTransform:"uppercase", letterSpacing:"0.06em" }}>Profile Options</div>
                     </div>
@@ -540,7 +573,7 @@ export default function ProfilePage() {
               </div>
               <div style={{ flex:1, paddingRight:"30px" }}>
                 <div style={{ display:"flex", alignItems:"center", gap:"6px", marginBottom:"2px" }}>
-                  <span style={{ fontSize:"20px", fontWeight:"900", color:T.white, fontFamily:"'Playfair Display',Georgia,serif", letterSpacing:"-0.3px" }}>{profileData.name}</span>
+                  <span className="uml-profile-name" style={{ fontSize:"20px", fontWeight:"900", color:T.white, fontFamily:"'Playfair Display',Georgia,serif", letterSpacing:"-0.3px" }}>{profileData.name}</span>
                   <MI name="verified" size={17} color="#2a8a5a" />
                 </div>
                 <div style={{ fontSize:"12px", color:T.subText, marginBottom:"4px" }}>{profileData.handle}</div>
@@ -568,7 +601,7 @@ export default function ProfilePage() {
                   style={{ flex:1, background:"none", border:"none", cursor:s.action?"pointer":"default", padding:"8px 0", borderRight:i<2?`1px solid ${T.divider}`:"none", borderRadius:"8px" }}
                   onMouseEnter={e=>{if(s.action)e.currentTarget.style.background=T.hoverBg;}}
                   onMouseLeave={e=>e.currentTarget.style.background="none"}>
-                  <div style={{ fontSize:"17px", fontWeight:"800", color:T.white }}>{s.n}</div>
+                  <div className="uml-stat-num" style={{ fontSize:"17px", fontWeight:"800", color:T.white }}>{s.n}</div>
                   <div style={{ fontSize:"11px", color:s.action?T.green:T.subText, display:"flex", alignItems:"center", justifyContent:"center", gap:"2px" }}>
                     {s.l}{s.action&&<MI name="arrow_forward" size={11} color={T.green} />}
                   </div>
@@ -664,7 +697,7 @@ export default function ProfilePage() {
           <span style={{ fontSize:"11px", color:T.mutedText }}>by Mzansi Connect</span>
         </div>
         <div style={{ fontSize:"12px", color:T.subText, marginBottom:"20px" }}>Connecting South Africa's creative talent 🇿🇦</div>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"2px 16px", marginBottom:"20px" }}>
+        <div className="uml-footer-grid" style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"2px 16px", marginBottom:"20px" }}>
           {[
             {icon:"login",          label:"Login / Sign Up",    fn:()=>setModal("login")},
             {icon:"person",         label:"My Profile",          fn:()=>showToast("Redirecting…")},
@@ -702,7 +735,7 @@ export default function ProfilePage() {
       {/* ══ HAMBURGER DRAWER ══ */}
       {modal==="menu"&&(
         <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.4)", zIndex:599, backdropFilter:"blur(4px)" }} onClick={()=>setModal(null)}>
-          <div style={{ position:"fixed", top:0, right:0, bottom:0, width:"280px", background:T.drawerBg, borderLeft:`1px solid ${T.drawerBorder}`, zIndex:600, padding:"22px 18px", display:"flex", flexDirection:"column", gap:"4px", boxShadow:T.dark?"none":"-8px 0 32px rgba(30,40,80,0.1)", overflowY:"auto" }} onClick={e=>e.stopPropagation()}>
+          <div className="uml-drawer" style={{ position:"fixed", top:0, right:0, bottom:0, width:"280px", background:T.drawerBg, borderLeft:`1px solid ${T.drawerBorder}`, zIndex:600, padding:"22px 18px", display:"flex", flexDirection:"column", gap:"4px", boxShadow:T.dark?"none":"-8px 0 32px rgba(30,40,80,0.1)", overflowY:"auto" }} onClick={e=>e.stopPropagation()}>
             <button style={{ alignSelf:"flex-end", background:T.inputBg, border:`1px solid ${T.inputBorder}`, borderRadius:"50%", width:"30px", height:"30px", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", marginBottom:"16px" }} onClick={()=>setModal(null)}>
               <MI name="close" size={17} color={T.subText} />
             </button>
@@ -783,7 +816,7 @@ export default function ProfilePage() {
       {/* ══ EDIT PROFILE ══ */}
       {showEditProfile&&editDraft&&(
         <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.5)", display:"flex", alignItems:"flex-end", justifyContent:"center", zIndex:600, backdropFilter:"blur(6px)" }} onClick={()=>setShowEditProfile(false)}>
-          <div style={{ background:T.modalBg, borderRadius:"24px 24px 0 0", padding:"0 0 32px", width:"100%", maxWidth:"480px", maxHeight:"92vh", overflowY:"auto", border:`1px solid ${T.cardBorder}`, boxShadow:"0 -16px 60px rgba(0,0,0,0.18)" }} onClick={e=>e.stopPropagation()}>
+          <div className="uml-edit-sheet" style={{ background:T.modalBg, borderRadius:"24px 24px 0 0", padding:"0 0 32px", width:"100%", maxWidth:"480px", maxHeight:"92vh", overflowY:"auto", border:`1px solid ${T.cardBorder}`, boxShadow:"0 -16px 60px rgba(0,0,0,0.18)" }} onClick={e=>e.stopPropagation()}>
             <div style={{ display:"flex", justifyContent:"center", padding:"12px 0 4px" }}>
               <div style={{ width:"40px", height:"4px", background:T.handleBar, borderRadius:"2px" }} />
             </div>
@@ -896,10 +929,10 @@ export default function ProfilePage() {
 
       {/* TOAST */}
       {toast&&(
-        <div style={{ position:"fixed", bottom:"24px", left:"50%", transform:"translateX(-50%)", background:"#2a8a5a", color:"#fff", padding:"10px 22px", borderRadius:"30px", fontSize:"13px", fontWeight:"600", zIndex:999, boxShadow:"0 4px 20px rgba(42,138,90,0.35)", whiteSpace:"nowrap", pointerEvents:"none" }}>
+        <div className="uml-toast" style={{ position:"fixed", bottom:"24px", left:"50%", transform:"translateX(-50%)", background:"#2a8a5a", color:"#fff", padding:"10px 22px", borderRadius:"30px", fontSize:"13px", fontWeight:"600", zIndex:999, boxShadow:"0 4px 20px rgba(42,138,90,0.35)", whiteSpace:"nowrap", pointerEvents:"none" }}>
           {toast}
         </div>
       )}
     </div>
   );
-												 }
+			  }
